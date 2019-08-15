@@ -17,8 +17,8 @@ mkdir -p /opt/
   wget "${ANACONDA_URL}"  -O ~/miniconda.sh
   bash ~/miniconda.sh -b -p /opt/miniconda3
   ln -s /opt/miniconda3 /opt/miniconda
-  conda --version
-  conda update -y conda
+  /opt/miniconda/bin/conda --version
+  /opt/miniconda/bin/conda update -y conda
   chown -R anaconda:tools /opt/miniconda
 }
 
