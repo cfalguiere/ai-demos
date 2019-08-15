@@ -17,15 +17,8 @@ mkdir -p /opt/
   wget -q  "${ANACONDA_URL}"  -O ~/miniconda.sh
   bash ~/miniconda.sh -b -p /opt/miniconda
   /opt/miniconda/bin/conda --version
-  cp env-setup/admin-condarc /opt/miniconda/.condarc
   /opt/miniconda/bin/conda update -y conda
   chown -R anaconda:tools /opt/miniconda
-}
-[[ -d /opt/envs/python37 ]] || {
-  echo "=== creation env Python 3.7"
-  /opt/miniconda/bin/conda create --name python-3-7  
-  conda create -n python37 python=3.7 anaconda
-  chown -R anaconda:tools /opt/envs/python37
 }
 
 # h2o
@@ -44,11 +37,4 @@ mkdir -p /opt/
 # https://s3.amazonaws.com/h2o-release/sparkling-water/spark-2.4/3.26.2-2.4/sparkling-water-3.26.2-2.4.zip
 
 
-
-
-
-
-
-
 echo "end of install-tools $( date )"
-
