@@ -18,8 +18,22 @@ mkdir -p /opt/
   bash ~/miniconda.sh -b -p /opt/miniconda
   /opt/miniconda/bin/conda --version
   /opt/miniconda/bin/conda update -y conda
+  cp env-setup/admin-conda /opt/miniconda/.condarc
   chown -R anaconda:tools /opt/miniconda
 }
+
+[[ -d /opt/envs/python37 ]] || {
+  echo "=== creating env Python 3.7"
+  /opt/miniconda/bin/conda create --name python37 python=3.7 anaconda
+  chown -R anaconda:tools /opt/envs/python37
+}
+
+[[ -d /opt/envs/r ]] || {
+  echo "=== creating env R"
+  /opt/miniconda/bin/conda create --name r r-essentials r-base
+  chown -R anaconda:tools /opt/envs/r
+}
+
 
 # h2o
 [[ -d /opt/miniconda ]] || {
