@@ -15,11 +15,17 @@ mkdir -p /opt/
   ANACONDA_VERSION="Anaconda3-2019.07-Linux-x86_64.sh"
   ANACONDA_URL="https://repo.anaconda.com/archive/${ANACONDA_VERSION}"
   wget -q  "${ANACONDA_URL}"  -O ~/miniconda.sh
-  bash ~/miniconda.sh -b -p /opt/miniconda3
-  ln -s /opt/miniconda3 /opt/miniconda
+  bash ~/miniconda.sh -b -p /opt/miniconda
   /opt/miniconda/bin/conda --version
+  cp env-setup/admin-condarc /opt/miniconda/.condarc
   /opt/miniconda/bin/conda update -y conda
   chown -R anaconda:tools /opt/miniconda
+}
+[[ -d /opt/envs/python37 ]] || {
+  echo "=== creation env Python 3.7"
+  /opt/miniconda/bin/conda create --name python-3-7  
+  conda create -n python37 python=3.7 anaconda
+  chown -R anaconda:tools /opt/envs/python37
 }
 
 # h2o
