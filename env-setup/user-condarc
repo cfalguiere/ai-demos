@@ -1,0 +1,3 @@
+envs_dirs:
+  - ~/my-envs
+  - /opt/envs
