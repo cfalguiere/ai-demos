@@ -3,6 +3,9 @@
 
 echo "starting install-tools $( date )"
 
+set -eu
+trap "{ echo 'install failed' ; exit 255; }" SIGINT SIGTERM ERR
+
 echo "HOME: $HOME"
 echo "USER: $USER"
 
