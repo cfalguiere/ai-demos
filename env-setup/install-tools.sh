@@ -18,7 +18,7 @@ mkdir -p /opt/
   bash ~/miniconda.sh -b -p /opt/miniconda
   /opt/miniconda/bin/conda --version
   /opt/miniconda/bin/conda update -y conda
-  cp env-setup/admin-conda /opt/miniconda/.condarc
+  cp env-setup/admin-condarc /opt/miniconda/.condarc
   chown -R anaconda:tools /opt/miniconda
 }
 
