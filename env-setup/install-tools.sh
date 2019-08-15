@@ -15,6 +15,8 @@ mkdir -p /opt/
   ANACONDA_VERSION="Anaconda3-2019.07-Linux-x86_64.sh"
   wget "https://repo.anaconda.com/archive/$ANACONDA_VERSION"  -O ~/miniconda.sh
   bash ~/miniconda.sh -b -p /opt/miniconda
+  conda --version
+  conda update -y conda
   chown -R anaconda:tools /opt/miniconda
 }
 
