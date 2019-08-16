@@ -8,7 +8,7 @@ trap "{ echo 'install failed' ; exit 255; }" SIGINT SIGTERM ERR
 
 TRACKING_DIR="/var/log/aidemos/setup"
 mkdir -p "${TRACKING_DIR}"
-TMP_DIR="/tmp/aidemos"
+TMP_DIR="/tmp/aidemos/install"
 mkdir -p "${TMP_DIR}"
 
 mkdir -p /opt/
@@ -19,8 +19,9 @@ mkdir -p /opt/
 
   ANACONDA_VERSION="Anaconda3-2019.07-Linux-x86_64.sh"
   ANACONDA_URL="https://repo.anaconda.com/archive/${ANACONDA_VERSION}"
-  wget -q  "${ANACONDA_URL}"  -O ~/miniconda.sh
-  bash ~/miniconda.sh -b -p /opt/miniconda
+  wget -q  "${ANACONDA_URL}"  -O "${TMP_DIR}/miniconda.sh"
+  bash "${TMP_DIR}/miniconda.sh" -b -p /opt/miniconda
+  rm -rf "${TMP_DIR}/miniconda.sh"
   /opt/miniconda/bin/conda --version
   /opt/miniconda/bin/conda update -y conda
   cp env-setup/admin-condarc /opt/miniconda/.condarc
@@ -50,8 +51,9 @@ mkdir -p /opt/
   H2O_VERSION="3.26.0.2"
   H2O_PACKAGE="h2o-${H2O_VERSION}.zip"
   H2O_URL="http://h2o-release.s3.amazonaws.com/h2o/rel-yau/2/${H2O_PACKAGE}"
-  wget -q  "${H2O_URL}" -O ~/${H2O_PACKAGE}
-  unzip ~/${H2O_PACKAGE} -d /opt/h2o-${H2O_VERSION}
+  wget -q  "${H2O_URL}" -O "${TMP_DIR}/${H2O_PACKAGE}"
+  unzip "${TMP_DIR}/${H2O_PACKAGE}" -d /opt/h2o-${H2O_VERSION}
+  rm -rf "${TMP_DIR}/${H2O_PACKAGE}"
   ln -s /opt/h2o-${H2O_VERSION} /opt/h2o
   touch "${TRACKING_DIR}/.h2o"
 }
@@ -63,12 +65,13 @@ mkdir -p /opt/
   H2OSW_VERSION="3.26.2-2.4"
   H2OSW_PACKAGE="sparkling-water-${H2OSW_VERSION}.zip"
   H2OSW_URL="https://s3.amazonaws.com/h2o-release/sparkling-water/spark-2.4/${H2OSW_VERSION}/${H2OSW_PACKAGE}"
-  wget -q  "${H2OSW_URL}" -O ~/${H2OSW_PACKAGE}
-  unzip ~/${H2OSW_PACKAGE} -d /opt/h2o-sparkling-water-${H2OSW_VERSION}
+  wget -q  "${H2OSW_URL}" -O "${TMP_DIR}/${H2OSW_PACKAGE}"
+  unzip "${TMP_DIR}/${H2OSW_PACKAGE}" -d /opt/h2o-sparkling-water-${H2OSW_VERSION}
+  rm -rf "${TMP_DIR}/${H2OSW_PACKAGE}"
   ln -s /opt/h2o-sparkling-water-${H2OSW_VERSION} /opt/h2o-saprkling-water
   touch "${TRACKING_DIR}/.h2o-saprking-water"
 }
 
-
+[[ -z "${TMP_DIR}" ]] || rm -rf "${TMP_DIR}"
 
 echo "end of install-tools $( date )"
