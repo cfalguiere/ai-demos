@@ -7,7 +7,7 @@ trap "{ echo 'h2o failed' ; exit 255; }" SIGINT SIGTERM ERR
 # TODO check h2o for existence
 # TODO check java for existence
 
-tmux new -s h2o "cd /opt/web; python -m SimpleHTTPServer 80"
+tmux new -s h2o "cd /opt/web; python -m SimpleHTTPServer 80 &"
 
 
 
