@@ -59,12 +59,6 @@ mkdir -p /opt/
   touch "${TRACKING_DIR}/.h2o"
 }
 
-[[ -f "${TRACKING_DIR}/.web" ]] || {
-  mkdir -p /opt/web
-  utils/index.html.dd > /opt/web/index.html
-}
-
-
 # sparkling water ( TODO spark )
 [[ -f "${TRACKING_DIR}/.h2o-sparkling-water" ]] || {
   echo "=== installing h2o sparkling water"
@@ -80,7 +74,8 @@ mkdir -p /opt/
 }
 
 [[ -f "${TRACKING_DIR}/.web" ]] || {
-  utils/index.html.dd > web/index.html
+  mkdir -p /opt/web
+  utils/index.html.dd > /opt/web/index.html
   touch "${TRACKING_DIR}/.web"
 }
 
