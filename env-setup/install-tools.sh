@@ -1,5 +1,6 @@
 #!/bin/bash
 # tested against  a AWS EC2 instance with a Linux 2 VM (Ubuntu)
+# run as root
 
 echo "starting install-tools $( date )"
 
@@ -12,6 +13,8 @@ TMP_DIR="/tmp/aidemos/install"
 mkdir -p "${TMP_DIR}"
 
 mkdir -p /opt/
+
+sudo apt install unzip
 
 # anaconda
 [[ -f "${TRACKING_DIR}/.anaconda" ]] || {
