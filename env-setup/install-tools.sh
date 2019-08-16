@@ -78,7 +78,7 @@ mkdir -p /opt/
   echo "=== setup webserver"
   mkdir -p /opt/web
   utils/index.html.dd > /opt/web/index.html
-  cp utils/run-simpleweb.sh /opt/web/
+  cp utils/run-simpleweb.sh /opt/web/run-simpleweb.sh
   touch "${TRACKING_DIR}/.web"
 }
 
