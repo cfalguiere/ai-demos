@@ -56,7 +56,7 @@ mkdir -p /opt/
   unzip "${TMP_DIR}/${H2O_PACKAGE}" -d /opt/
   rm -rf "${TMP_DIR}/${H2O_PACKAGE}"
   ln -s /opt/h2o-${H2O_VERSION} /opt/h2o
-  cp utils/run-h2owebui.sh /opt/web
+  cp utils/run-h2owebui.sh /opt/h2o/
   touch "${TRACKING_DIR}/.h2o"
 }
 
