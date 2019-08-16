@@ -81,6 +81,11 @@ mkdir -p /opt/
   touch "${TRACKING_DIR}/.web"
 }
 
+# TODO test reentrance
+/opt/h2o/run-h2oui.sh
+/opt/web/run-simpleweb.sh
+
+
 [[ -z "${TMP_DIR}" ]] || rm -rf "${TMP_DIR}"
 
 echo "end of install-tools $( date )"
