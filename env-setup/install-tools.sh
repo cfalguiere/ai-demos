@@ -60,7 +60,8 @@ mkdir -p /opt/
 }
 
 [[ -f "${TRACKING_DIR}/.web" ]] || {
-  utils/index.html.dd > web/index.html
+  mkdir -p /opt/web
+  utils/index.html.dd > /opt/web/index.html
 }
 
 
