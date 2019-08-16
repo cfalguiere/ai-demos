@@ -1,0 +1,12 @@
+#!/bin/bash
+
+echo  <<abcdef
+<html>
+
+<a href="${PUBLIC_IP}:54321">H2O Web UI</a>
+
+</html>
+abcdef
+
+exit
+

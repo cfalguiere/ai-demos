@@ -56,9 +56,13 @@ mkdir -p /opt/
   unzip "${TMP_DIR}/${H2O_PACKAGE}" -d /opt/
   rm -rf "${TMP_DIR}/${H2O_PACKAGE}"
   ln -s /opt/h2o-${H2O_VERSION} /opt/h2o
-  cp utils/run-h2oui.sh
   touch "${TRACKING_DIR}/.h2o"
 }
+
+[[ -f "${TRACKING_DIR}/.web" ]] || {
+  utils/index.html.dd > web/index.html
+}
+
 
 # sparkling water ( TODO spark )
 [[ -f "${TRACKING_DIR}/.h2o-sparkling-water" ]] || {
@@ -71,7 +75,12 @@ mkdir -p /opt/
   unzip "${TMP_DIR}/${H2OSW_PACKAGE}" -d /opt/h2o-sparkling-water-${H2OSW_VERSION}
   rm -rf "${TMP_DIR}/${H2OSW_PACKAGE}"
   ln -s /opt/h2o-sparkling-water-${H2OSW_VERSION} /opt/h2o-saprkling-water
-  touch "${TRACKING_DIR}/.h2o-saprking-water"
+  touch "${TRACKING_DIR}/.h2o-sparking-water"
+}
+
+[[ -f "${TRACKING_DIR}/.web" ]] || {
+  utils/index.html.dd > web/index.html
+  touch "${TRACKING_DIR}/.web"
 }
 
 [[ -z "${TMP_DIR}" ]] || rm -rf "${TMP_DIR}"
