@@ -75,9 +75,10 @@ mkdir -p /opt/
 }
 
 [[ -f "${TRACKING_DIR}/.web" ]] || {
+  echo "=== setup webserver"
   mkdir -p /opt/web
   utils/index.html.dd > /opt/web/index.html
-  cp utils/run-simpleweb.sh /opt/web
+  cp utils/run-simpleweb.sh /opt/web/
   touch "${TRACKING_DIR}/.web"
 }
 
