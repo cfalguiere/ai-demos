@@ -56,6 +56,7 @@ mkdir -p /opt/
   unzip "${TMP_DIR}/${H2O_PACKAGE}" -d /opt/
   rm -rf "${TMP_DIR}/${H2O_PACKAGE}"
   ln -s /opt/h2o-${H2O_VERSION} /opt/h2o
+  cp utils/run-h2oui.sh /opt/web
   touch "${TRACKING_DIR}/.h2o"
 }
 
@@ -76,6 +77,7 @@ mkdir -p /opt/
 [[ -f "${TRACKING_DIR}/.web" ]] || {
   mkdir -p /opt/web
   utils/index.html.dd > /opt/web/index.html
+  cp utils/run-simpleweb.sh /opt/web
   touch "${TRACKING_DIR}/.web"
 }
 
