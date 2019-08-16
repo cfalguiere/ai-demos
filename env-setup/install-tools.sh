@@ -14,8 +14,6 @@ mkdir -p "${TMP_DIR}"
 
 mkdir -p /opt/
 
-sudo apt install unzip
-
 # anaconda
 [[ -f "${TRACKING_DIR}/.anaconda" ]] || {
   echo "=== installing anaconda"
@@ -55,9 +53,10 @@ sudo apt install unzip
   H2O_PACKAGE="h2o-${H2O_VERSION}.zip"
   H2O_URL="http://h2o-release.s3.amazonaws.com/h2o/rel-yau/2/${H2O_PACKAGE}"
   wget -q  "${H2O_URL}" -O "${TMP_DIR}/${H2O_PACKAGE}"
-  unzip "${TMP_DIR}/${H2O_PACKAGE}" -d /opt/h2o-${H2O_VERSION}
+  unzip "${TMP_DIR}/${H2O_PACKAGE}" -d /opt/
   rm -rf "${TMP_DIR}/${H2O_PACKAGE}"
   ln -s /opt/h2o-${H2O_VERSION} /opt/h2o
+  cp utils/run-h2oui.sh
   touch "${TRACKING_DIR}/.h2o"
 }
 
