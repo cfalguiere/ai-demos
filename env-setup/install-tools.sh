@@ -83,7 +83,9 @@ mkdir -p /opt/
 }
 
 # TODO test reentrance
+echo "=== starting h2o Web UI"
 /opt/h2o/run-h2owebui.sh
+echo "=== starting static wrb server"
 /opt/web/run-simpleweb.sh
 
 
