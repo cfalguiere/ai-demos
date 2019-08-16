@@ -83,10 +83,14 @@ mkdir -p /opt/
 }
 
 # TODO test reentrance
-echo "=== starting h2o Web UI"
-/opt/h2o/run-h2owebui.sh
-echo "=== starting static web server"
-/opt/web/run-simpleweb.sh
+! tmux has-session -t h2o 2>/dev/null && {
+  echo "=== starting h2o Web UI"
+  /opt/h2o/run-h2owebui.sh
+}
+! tmux has-session -t h2o 2>/dev/null && {
+  echo "=== starting static web server"
+  /opt/web/run-simpleweb.sh
+}
 
 
 [[ -z "${TMP_DIR}" ]] || rm -rf "${TMP_DIR}"
