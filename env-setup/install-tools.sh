@@ -82,15 +82,9 @@ mkdir -p /opt/
   touch "${TRACKING_DIR}/.web"
 }
 
-# TODO test reentrance
-! tmux has-session -t h2o 2>/dev/null && {
-  echo "=== starting h2o Web UI"
-  /opt/h2o/run-h2owebui.sh
-}
-! tmux has-session -t h2o 2>/dev/null && {
-  echo "=== starting static web server"
-  /opt/web/run-simpleweb.sh
-}
+/opt/h2o/run-h2owebui.sh
+
+/opt/web/run-simpleweb.sh
 
 
 [[ -z "${TMP_DIR}" ]] || rm -rf "${TMP_DIR}"

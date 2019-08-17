@@ -2,12 +2,15 @@
 # tested against  a AWS EC2 instance with a Linux 2 VM (Ubuntu)
 
 set -eu
-trap "{ echo 'h2o failed' ; exit 255; }" SIGINT SIGTERM ERR
+trap "{ echo 'web failed' ; exit 255; }" SIGINT SIGTERM ERR
 
-# TODO check h2o for existence
-# TODO check java for existence
+! tmux has-session -t web 2>/dev/null && {
+  echo "=== starting static web server"
+  tmux new -d -s web bash -c "cd /opt/web; python -m SimpleHTTPServer 80" &
+}
 
-tmux new -d -s web bash -c "cd /opt/web; python -m SimpleHTTPServer 80"
+# TODO check page  for existence
+
 
 
 
