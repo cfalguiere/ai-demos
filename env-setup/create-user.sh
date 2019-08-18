@@ -27,6 +27,7 @@ chmod 700 "$key_dir"
 touch "${key_dir}//authorized_keys"
 chmod 600 "${key_dir}/authorized_keys"
 cp /home/ubuntu/.ssh/authorized_keys "${key_dir}/authorized_keys"
+chown -R cfalguiere:cfalguiere  "$key_dir"
 
 # conda configuration
 cp env-setup/user-condarc "/home/${userid}/.condarc"
