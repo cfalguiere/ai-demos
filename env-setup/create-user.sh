@@ -4,4 +4,7 @@
 set -eu
 trap "{ echo 'user creation failed' ; exit 255; }" SIGINT SIGTERM ERR
 
+[[ $# -ne 1 ]] && { echo "ERROR: missing parameter userid"; exit 254 }
+
+
 
