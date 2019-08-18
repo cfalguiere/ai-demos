@@ -37,6 +37,8 @@ cp env-setup/user-condarc "/home/${userid}/.condarc"
 echo "export LOCAL_IP=$( curl --silent http://169.254.169.254/latest/meta-data/local-ipv4 )" |  tee -a "/home/${userid}/.bashrc"
 echo "export PUBLIC_IP=$( curl --silent http://169.254.169.254/latest/meta-data/public-ipv4 )" |  tee -a "/home/${userid}/.bashrc"
 
+id $userid
+
 echo "INFO - user $userid created"
 
 
