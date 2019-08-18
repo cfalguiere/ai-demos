@@ -10,12 +10,5 @@ userid=$1
 
 echo "creating user $userid"
 
-# create user 
-useradd --create-home --shell /bin/bash  --disable-password "$userid"
-usermod -aG devs "$userid"
-usermod -aG tools "$userid"
-usermod -aG sudo "$userid"
-
-
 echo "user $userid created"
 
