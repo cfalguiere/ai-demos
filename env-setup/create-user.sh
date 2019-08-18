@@ -34,3 +34,4 @@ echo "export PUBLIC_IP=$( curl --silent http://169.254.169.254/latest/meta-data/
 
 
 echo "user $userid created"
+
