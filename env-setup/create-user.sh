@@ -25,7 +25,7 @@ chmod 600 "${key_dir}/authorized_keys"
 #TODO s3 path cat >> ".${key_dir}/authorized_keys"
 
 # conda configuration
-cp env-setup/user-condarc "/home/${userid}/.condarc
+cp env-setup/user-condarc "/home/${userid}/.condarc"
 PATH="/opt/miniconda/bin;${PATH}"
 
 # useful variables
