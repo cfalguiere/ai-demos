@@ -2,10 +2,10 @@
 # tested against  a AWS EC2 instance with a Linux 2 VM (Ubuntu)
 # run as root
 
-echo "starting install-tools $( date )"
+echo "INFO - starting install-tools $( date )"
 
 set -eu
-trap "{ echo 'install failed' ; exit 255; }" SIGINT SIGTERM ERR
+trap "{ echo 'ERROR - install failed' ; exit 255; }" SIGINT SIGTERM ERR
 
 TRACKING_DIR="/var/log/aidemos/setup"
 mkdir -p "${TRACKING_DIR}"
@@ -89,4 +89,4 @@ mkdir -p /opt/
 
 [[ -z "${TMP_DIR}" ]] || rm -rf "${TMP_DIR}"
 
-echo "end of install-tools $( date )"
+echo "INFO - end of install-tools $( date )"
