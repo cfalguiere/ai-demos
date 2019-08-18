@@ -4,18 +4,14 @@
 set -eu
 trap "{ echo 'user creation failed' ; exit 255; }" SIGINT SIGTERM ERR
 
-[[ $# -ne 1 ]] && { echo "ERROR: missing parameter userid"; exit 254 }
-
-userid=$1
-
-echo "creating user $userid"
-
 # create groups
+echo "creating groups"
 
 groupadd devs
 groupadd tools
 
 # create services 
+echo "creating services"
 
 for account in anaconda h2o
 do
@@ -24,4 +20,4 @@ do
   usermod -aG sudo $account
 done
 
-echo "user tools accounts"
+echo "accounts created"
