@@ -1,0 +1,14 @@
+name: python37
+channels:
+  - conda-forge
+  - javascript
+dependencies:
+  - python=3.7
+  - anaconda
+  - h2o
+  - mlflow
+  - airflow
+  - setuptools
+  - flask
+  - pip:
+    - Flask-Testing
