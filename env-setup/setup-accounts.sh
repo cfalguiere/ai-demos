@@ -13,9 +13,10 @@ groupadd tools
 # create services 
 echo "creating services"
 
+# TODO disable password
 for account in anaconda h2o
 do
-  useradd --create-home --shell /bin/bash --disable-password  $account
+  useradd --create-home --shell /bin/bash $account
   usermod -aG tools $account
   usermod -aG sudo $account
 done
