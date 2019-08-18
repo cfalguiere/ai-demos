@@ -27,6 +27,7 @@ mkdir -p /opt/
   /opt/miniconda/bin/conda update -y conda
   cp env-setup/admin-condarc /opt/miniconda/.condarc
   chown -R anaconda:tools /opt/miniconda
+  ln -s /opt/miniconda/etc/profile.d/conda.sh /etc/profile.d/conda.sh
   touch "${TRACKING_DIR}/.anaconda" 
 }
 
