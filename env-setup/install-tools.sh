@@ -32,7 +32,8 @@ mkdir -p /opt/
 
 [[ -f "${TRACKING_DIR}/.env-python3" ]] || {
   echo "=== creating env Python 3.7"
-  /opt/miniconda/bin/conda create --yes --name python37 python=3.7 anaconda
+  /opt/miniconda/bin/conda create --yes --name python37 python=3.7 anaconda pip setuptools h2o mlflow 
+  # -c conda-forge airflow
   chown -R anaconda:tools /opt/envs/python37
   touch "${TRACKING_DIR}/.env-python3"
 }
