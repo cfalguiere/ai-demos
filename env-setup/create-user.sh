@@ -32,6 +32,7 @@ chown -R "${userid}:${userid}"  "$key_dir"
 # conda configuration
 cp env-setup/user-condarc "/home/${userid}/.condarc"
 #echo 'export PATH="/opt/miniconda/bin;${PATH}"' | tee -a "/home/${userid}/.bashrc"
+echo "source . /etc/profile.d/conda.sh" | tee -a "/home/${userid}/.bashrc"
 
 # useful variables
 echo "export LOCAL_IP=$( curl --silent http://169.254.169.254/latest/meta-data/local-ipv4 )" |  tee -a "/home/${userid}/.bashrc"
