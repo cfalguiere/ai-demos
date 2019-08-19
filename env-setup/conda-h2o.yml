@@ -1,0 +1,9 @@
+channels:
+  - h2oai
+dependencies:
+  - h2o
+  - colorama >=0.3.7
+  - future >=0.15.2
+  - tabulate >=0.7.5
+  - requests >=2.10
+
