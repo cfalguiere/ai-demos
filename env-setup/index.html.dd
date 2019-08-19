@@ -3,6 +3,9 @@
 cat  <<abcdef
 <html>
 
+<h1>Jupyter</h1>
+<a href="http://${PUBLIC_IP}:8888/">Jupyter</a>
+
 <h1>H2O</h1>
 <a href="http://${PUBLIC_IP}:54321/">H2O Web UI</a>
 
