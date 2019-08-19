@@ -1,9 +1,9 @@
 name: python37
 channels:
-  - defaults
+  - h2oai
   - anaconda
   - conda-forge
-  - h2oai
+  - defaults
 dependencies:
   - python=3.7
   - anaconda
