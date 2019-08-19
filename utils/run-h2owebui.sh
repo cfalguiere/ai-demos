@@ -2,7 +2,7 @@
 # tested against  a AWS EC2 instance with a Linux 2 VM (Ubuntu)
 
 set -eu
-trap "{ echo 'h2o failed' ; exit 255; }" SIGINT SIGTERM ERR
+trap "{ echo 'ERROR - h2o UI failed' ; exit 255; }" SIGINT SIGTERM ERR
 
 ! tmux has-session -t h2o 2>/dev/null && {
   echo "=== starting h2o Web UI"
@@ -11,6 +11,8 @@ trap "{ echo 'h2o failed' ; exit 255; }" SIGINT SIGTERM ERR
 
 # TODO check h2o for existence
 # TODO check java for existence
+
+echo "INFO - h2o UI started"
 
 
 
