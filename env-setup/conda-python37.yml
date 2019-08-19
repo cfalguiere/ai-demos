@@ -3,6 +3,7 @@ channels:
   - defaults
   - anaconda
   - conda-forge
+  - h2oai
 dependencies:
   - python=3.7
   - anaconda
