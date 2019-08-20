@@ -88,6 +88,8 @@ mkdir -p /opt/
 
 /opt/web/run-simpleweb.sh
 
+./utils/run-mlflow.sh
+./utils/run-airflow.sh
 
 [[ -z "${TMP_DIR}" ]] || rm -rf "${TMP_DIR}"
 
