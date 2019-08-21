@@ -1,14 +1,15 @@
-name: python37
+name: python36
 channels:
+  - h2oai
   - anaconda
   - conda-forge
   - defaults
 dependencies:
-  - python=3.7
+  - python=3.67
   - anaconda
   - mlflow
   - airflow
-  - h2oai::h2o
+  - h2o
   - colorama >=0.3.7
   - future >=0.15.2
   - tabulate >=0.7.5
