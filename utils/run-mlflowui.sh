@@ -6,7 +6,8 @@ trap "{ echo 'ERROR - MLflow UI failed' ; exit 255; }" SIGINT SIGTERM ERR
 
 ! tmux has-session -t mlflowui 2>/dev/null && {
   echo "=== starting MLFlow UI"
-  tmux new -d -s mlflowui bash -c "conda activate python36; mlflow ui" &
+  cd /opt/mlflow
+  tmux new -d -s mlflowui bash -c "source /etc/profile.d/conda.sh; onda activate python36; cd /opt/mlflow; mlflow ui" &
 }
 
 # TODO check for existence

@@ -83,12 +83,44 @@ mkdir -p /opt/
   touch "${TRACKING_DIR}/.web"
 }
 
+
+# mlflow 
+[[ -f "${TRACKING_DIR}/.mlflow" ]] || {
+  echo "=== installing mlflow"
+  mkdir -p /opt/mlflow
+  cp utils/run-mlflowui.sh /opt/mlflow/run-mlflowui.sh
+  touch "${TRACKING_DIR}/.mlflow"
+}
+
+
+# airflow 
+[[ -f "${TRACKING_DIR}/.airflow" ]] || {
+  echo "=== installing airflow"
+  mkdir -p /opt/airflow
+  cp utils/run-airflowui.sh /opt/airflow/run-airflowui.sh
+  echo "=== initializing airflow database "
+  tmux new -d -s airflowdb bash -c "source /etc/profile.d/conda.sh;conda activate python36; cd /opt/airflow/; airflow initdb"
+  echo "=== airflow database initialization airflow done "
+  touch "${TRACKING_DIR}/.airflow"
+}
+
+# jupyter
+[[ -f "${TRACKING_DIR}/.jupyter" ]] || {
+  echo "=== installing jupyter"
+  mkdir -p /opt/jupyter
+  cp utils/run-jupyter.sh /opt/mlflow/run-jupyter.sh
+  touch "${TRACKING_DIR}/.jupyter"
+}
+
 /opt/h2o/run-h2owebui.sh
 
 /opt/web/run-simpleweb.sh
 
-./utils/run-mlflowui.sh
-./utils/run-airflow.sh
+/opt/mlflow/run-mlflowui.sh
+
+/opt/airflow/run-airflow.sh
+
+/opt/jupyter/run-jupyter.sh
 
 [[ -z "${TMP_DIR}" ]] || rm -rf "${TMP_DIR}"
 
