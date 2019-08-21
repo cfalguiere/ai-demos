@@ -100,8 +100,7 @@ mkdir -p /opt/
   cp utils/run-airflow.sh /opt/airflow/run-airflow.sh
   echo "=== initializing airflow database "
   tmux new -d -s airflowdb bash -c "source /etc/profile.d/conda.sh; conda activate python36; cd /opt/airflow/; airflow initdb 2>&1 | tee ${TRACKING_DIR}/airflow-initdb.out; touch ${TRACKING_DIR}/.airflow-initdb"
-  [[ -f ${TRACKING_DIR}/.airflow-initdb ]] 
-  echo "=== airflow database initialization airflow done "
+  [[ -f "${TRACKING_DIR}/.airflow-initdb" ]] && echo "=== airflow database initialization airflow done "
   touch "${TRACKING_DIR}/.airflow"
 }
 
