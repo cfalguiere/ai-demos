@@ -97,7 +97,7 @@ mkdir -p /opt/
 [[ -f "${TRACKING_DIR}/.airflow" ]] || {
   echo "=== installing airflow"
   mkdir -p /opt/airflow
-  cp utils/run-airflowui.sh /opt/airflow/run-airflowui.sh
+  cp utils/run-airflowx.sh /opt/airflow/run-airflow.sh
   echo "=== initializing airflow database "
   tmux new -d -s airflowdb bash -c "source /etc/profile.d/conda.sh;conda activate python36; cd /opt/airflow/; airflow initdb"
   echo "=== airflow database initialization airflow done "
@@ -108,7 +108,7 @@ mkdir -p /opt/
 [[ -f "${TRACKING_DIR}/.jupyter" ]] || {
   echo "=== installing jupyter"
   mkdir -p /opt/jupyter
-  cp utils/run-jupyter.sh /opt/mlflow/run-jupyter.sh
+  cp utils/run-jupyter.sh /opt/jupyter/run-jupyter.sh
   touch "${TRACKING_DIR}/.jupyter"
 }
 
