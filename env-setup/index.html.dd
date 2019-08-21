@@ -9,6 +9,12 @@ cat  <<abcdef
 <h1>H2O</h1>
 <a href="http://${PUBLIC_IP}:54321/">H2O Web UI</a>
 
+<h1>MLFlow</h1>
+<a href="http://${PUBLIC_IP}:5000/">MLFlow UI</a>
+
+<h1>AirFlow</h1>
+<a href="http://${PUBLIC_IP}:8080/">AirFlow UI</a>
+
 </html>
 abcdef
 
