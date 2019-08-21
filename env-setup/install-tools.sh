@@ -72,7 +72,7 @@ mkdir -p /opt/
   unzip "${TMP_DIR}/${H2OSW_PACKAGE}" -d /opt/h2o-sparkling-water-${H2OSW_VERSION}
   rm -rf "${TMP_DIR}/${H2OSW_PACKAGE}"
   ln -s /opt/h2o-sparkling-water-${H2OSW_VERSION} /opt/h2o-saprkling-water
-  touch "${TRACKING_DIR}/.h2o-sparking-water"
+  touch "${TRACKING_DIR}/.h2o-sparkling-water"
 }
 
 [[ -f "${TRACKING_DIR}/.web" ]] || {
