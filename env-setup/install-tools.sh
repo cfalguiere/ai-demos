@@ -44,7 +44,7 @@ cd $TMP_DIR
 
 [[ -f "${TRACKING_DIR}/.env-python3" ]] || {
   echo "=== creating env Python 3.6"
-  sudo -u anaconda /opt/miniconda/bin/conda env create --file env-setup/conda-python36.yml
+  sudo -u anaconda /opt/miniconda/bin/conda env create --file "${REPO_DIR}/env-setup/conda-python36.yml"
   #chown -R anaconda:tools /opt/envs/python36
   touch "${TRACKING_DIR}/.env-python3"
 }
