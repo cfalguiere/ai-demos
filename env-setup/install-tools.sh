@@ -13,6 +13,8 @@ TMP_DIR="/tmp/aidemos/install"
 mkdir -p "${TMP_DIR}"
 
 mkdir -p /opt/
+chgrp tools /opt/
+chmod g+w /opt/
 
 # anaconda
 [[ -f "${TRACKING_DIR}/.anaconda" ]] || {
@@ -21,27 +23,27 @@ mkdir -p /opt/
   ANACONDA_VERSION="Anaconda3-2019.07-Linux-x86_64.sh"
   ANACONDA_URL="https://repo.anaconda.com/archive/${ANACONDA_VERSION}"
   wget -q  "${ANACONDA_URL}"  -O "${TMP_DIR}/miniconda.sh"
-  bash "${TMP_DIR}/miniconda.sh" -b -p /opt/miniconda
+  sudo -u anaconda bash "${TMP_DIR}/miniconda.sh" -b -p /opt/miniconda
   rm -rf "${TMP_DIR}/miniconda.sh"
   /opt/miniconda/bin/conda --version
-  /opt/miniconda/bin/conda update -y conda
-  cp env-setup/admin-condarc /opt/miniconda/.condarc
-  chown -R anaconda:tools /opt/miniconda
+  sudo -u anaconda /opt/miniconda/bin/conda update -y conda
+  sudo -u anaconda cp env-setup/admin-condarc /opt/miniconda/.condarc
+  # chown -R anaconda:tools /opt/miniconda
   ln -s /opt/miniconda/etc/profile.d/conda.sh /etc/profile.d/conda.sh
   touch "${TRACKING_DIR}/.anaconda" 
 }
 
 [[ -f "${TRACKING_DIR}/.env-python3" ]] || {
   echo "=== creating env Python 3.6"
-  /opt/miniconda/bin/conda env create --file env-setup/conda-python36.yml
-  chown -R anaconda:tools /opt/envs/python36
+  sudo -u anaconda /opt/miniconda/bin/conda env create --file env-setup/conda-python36.yml
+  #chown -R anaconda:tools /opt/envs/python36
   touch "${TRACKING_DIR}/.env-python3"
 }
 
 [[ -f "${TRACKING_DIR}/.env-r" ]] || {
   echo "=== creating env R"
-  /opt/miniconda/bin/conda create --yes --name r r-essentials r-base
-  chown -R anaconda:tools /opt/envs/r
+  sudo -u anaconda /opt/miniconda/bin/conda create --yes --name r r-essentials r-base
+  #chown -R anaconda:tools /opt/envs/r
   touch "${TRACKING_DIR}/.env-r"
 }
 
@@ -54,10 +56,10 @@ mkdir -p /opt/
   H2O_PACKAGE="h2o-${H2O_VERSION}.zip"
   H2O_URL="http://h2o-release.s3.amazonaws.com/h2o/rel-yau/2/${H2O_PACKAGE}"
   wget -q  "${H2O_URL}" -O "${TMP_DIR}/${H2O_PACKAGE}"
-  unzip "${TMP_DIR}/${H2O_PACKAGE}" -d /opt/
+  sudo -u h2o unzip "${TMP_DIR}/${H2O_PACKAGE}" -d /opt/
   rm -rf "${TMP_DIR}/${H2O_PACKAGE}"
-  ln -s /opt/h2o-${H2O_VERSION} /opt/h2o
-  cp utils/run-h2owebui.sh /opt/h2o/
+  sudo -u h2o ln -s /opt/h2o-${H2O_VERSION} /opt/h2o
+  sudo -u cp utils/run-h2owebui.sh /opt/h2o/
   touch "${TRACKING_DIR}/.h2o"
 }
 
@@ -69,9 +71,9 @@ mkdir -p /opt/
   H2OSW_PACKAGE="sparkling-water-${H2OSW_VERSION}.zip"
   H2OSW_URL="https://s3.amazonaws.com/h2o-release/sparkling-water/spark-2.4/${H2OSW_VERSION}/${H2OSW_PACKAGE}"
   wget -q  "${H2OSW_URL}" -O "${TMP_DIR}/${H2OSW_PACKAGE}"
-  unzip "${TMP_DIR}/${H2OSW_PACKAGE}" -d /opt/h2o-sparkling-water-${H2OSW_VERSION}
+  sudo -u h2o unzip "${TMP_DIR}/${H2OSW_PACKAGE}" -d /opt/h2o-sparkling-water-${H2OSW_VERSION}
   rm -rf "${TMP_DIR}/${H2OSW_PACKAGE}"
-  ln -s /opt/h2o-sparkling-water-${H2OSW_VERSION} /opt/h2o-saprkling-water
+  sudo -u h2o ln -s /opt/h2o-sparkling-water-${H2OSW_VERSION} /opt/h2o-saprkling-water
   touch "${TRACKING_DIR}/.h2o-sparkling-water"
 }
 
@@ -87,8 +89,8 @@ mkdir -p /opt/
 # mlflow 
 [[ -f "${TRACKING_DIR}/.mlflow" ]] || {
   echo "=== installing mlflow"
-  mkdir -p /opt/mlflow
-  cp utils/run-mlflowui.sh /opt/mlflow/run-mlflowui.sh
+  sudo -u mlflow mkdir -p /opt/mlflow
+  sudo -u mlflow cp utils/run-mlflowui.sh /opt/mlflow/run-mlflowui.sh
   touch "${TRACKING_DIR}/.mlflow"
 }
 
@@ -96,10 +98,10 @@ mkdir -p /opt/
 # airflow 
 [[ -f "${TRACKING_DIR}/.airflow" ]] || {
   echo "=== installing airflow"
-  mkdir -p /opt/airflow
-  cp utils/run-airflow.sh /opt/airflow/run-airflow.sh
+  sudo -u airflow mkdir -p /opt/airflow
+  sudo -u airflow cp utils/run-airflow.sh /opt/airflow/run-airflow.sh
   echo "=== initializing airflow database "
-  tmux new -d -s airflowdb bash -c "source /etc/profile.d/conda.sh; conda activate python36; cd /opt/airflow/; airflow initdb 2>&1 | tee ${TRACKING_DIR}/airflow-initdb.out; touch ${TRACKING_DIR}/.airflow-initdb"
+  sudo -u airflow tmux new -d -s airflowdb bash -c "source /etc/profile.d/conda.sh; conda activate python36; cd /opt/airflow/; airflow initdb 2>&1 | tee ${TRACKING_DIR}/airflow-initdb.out; touch ${TRACKING_DIR}/.airflow-initdb"
   [[ -f "${TRACKING_DIR}/.airflow-initdb" ]] && echo "=== airflow database initialization airflow done "
   touch "${TRACKING_DIR}/.airflow"
 }
@@ -107,20 +109,17 @@ mkdir -p /opt/
 # jupyter
 [[ -f "${TRACKING_DIR}/.jupyter" ]] || {
   echo "=== installing jupyter"
-  mkdir -p /opt/jupyter
-  cp utils/run-jupyter.sh /opt/jupyter/run-jupyter.sh
+  sudo -u jupyter mkdir -p /opt/jupyter
+  sudo -u jupyter cp utils/run-jupyter.sh /opt/jupyter/run-jupyter.sh
   touch "${TRACKING_DIR}/.jupyter"
 }
 
-/opt/h2o/run-h2owebui.sh
-
 /opt/web/run-simpleweb.sh
 
-/opt/mlflow/run-mlflowui.sh
-
-/opt/airflow/run-airflow.sh
-
-/opt/jupyter/run-jupyter.sh
+sudo -u h2o /opt/h2o/run-h2owebui.sh
+sudo -u mlflow /opt/mlflow/run-mlflowui.sh
+sudo -u airflow /opt/airflow/run-airflow.sh
+sudo -u jupyter /opt/jupyter/run-jupyter.sh
 
 [[ -z "${TMP_DIR}" ]] || rm -rf "${TMP_DIR}"
 

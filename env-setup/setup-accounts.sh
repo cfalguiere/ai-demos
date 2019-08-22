@@ -14,11 +14,13 @@ groupadd tools
 echo "INFO - creating services"
 
 # TODO disable password
-for account in anaconda h2o
+for account in anaconda h2o mlflow airflow jupyter
 do
-  useradd --create-home --shell /bin/bash $account
+  [[ $account == "anaconda" ]] && path_home="/opt/miniconda" || path_home="/opt/$account" 
+  useradd --home "$path_home"  --shell /bin/bash $account
   usermod -aG tools $account
   usermod -aG sudo $account
+  id $account
 done
 
 echo "INFO - accounts created"

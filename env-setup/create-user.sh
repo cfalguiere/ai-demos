@@ -19,6 +19,7 @@ useradd --create-home --shell /bin/bash "$userid"
 usermod -aG devs "$userid"
 usermod -aG tools "$userid"
 usermod -aG sudo "$userid"
+id $userid
 
 # key pair
 key_dir="/home/${userid}/.ssh"
