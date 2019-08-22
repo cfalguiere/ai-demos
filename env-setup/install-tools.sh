@@ -46,14 +46,14 @@ cd $TMP_DIR
 
 [[ -f "${TRACKING_DIR}/.env-python3" ]] || {
   echo "=== creating env Python 3.6"
-  sudo -u -H anaconda /opt/miniconda/bin/conda env create --file "${REPO_DIR}/env-setup/conda-python36.yml"
+  sudo -H -u anaconda /opt/miniconda/bin/conda env create --file "${REPO_DIR}/env-setup/conda-python36.yml"
   #chown -R anaconda:tools /opt/envs/python36
   touch "${TRACKING_DIR}/.env-python3"
 }
 
 [[ -f "${TRACKING_DIR}/.env-r" ]] || {
   echo "=== creating env R"
-  sudo -u -H anaconda /opt/miniconda/bin/conda create --yes --name r r-essentials r-base
+  sudo -H -u anaconda /opt/miniconda/bin/conda create --yes --name r r-essentials r-base
   #chown -R anaconda:tools /opt/envs/r
   touch "${TRACKING_DIR}/.env-r"
 }
@@ -128,10 +128,10 @@ cd $TMP_DIR
 
 /opt/web/run-simpleweb.sh
 
-sudo -u -H h2o /opt/h2o/run-h2owebui.sh
-sudo -u -H mlflow /opt/mlflow/run-mlflowui.sh
-sudo -u -H airflow /opt/airflow/run-airflow.sh
-sudo -u -H jupyter /opt/jupyter/run-jupyter.sh
+sudo -H -u h2o /opt/h2o/run-h2owebui.sh
+sudo -H -u mlflow /opt/mlflow/run-mlflowui.sh
+sudo -H -u airflow /opt/airflow/run-airflow.sh
+sudo -H -u jupyter /opt/jupyter/run-jupyter.sh
 
 [[ -z "${TMP_DIR}" ]] || rm -rf "${TMP_DIR}"
 
