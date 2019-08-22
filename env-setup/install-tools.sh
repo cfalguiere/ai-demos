@@ -44,14 +44,14 @@ cd $TMP_DIR
 
 [[ -f "${TRACKING_DIR}/.env-python3" ]] || {
   echo "=== creating env Python 3.6"
-  sudo -u anaconda /opt/miniconda/bin/conda env create --file "${REPO_DIR}/env-setup/conda-python36.yml"
+  sudo -u -H anaconda /opt/miniconda/bin/conda env create --file "${REPO_DIR}/env-setup/conda-python36.yml"
   #chown -R anaconda:tools /opt/envs/python36
   touch "${TRACKING_DIR}/.env-python3"
 }
 
 [[ -f "${TRACKING_DIR}/.env-r" ]] || {
   echo "=== creating env R"
-  sudo -u anaconda /opt/miniconda/bin/conda create --yes --name r r-essentials r-base
+  sudo -u -H anaconda /opt/miniconda/bin/conda create --yes --name r r-essentials r-base
   #chown -R anaconda:tools /opt/envs/r
   touch "${TRACKING_DIR}/.env-r"
 }
@@ -68,7 +68,8 @@ cd $TMP_DIR
   sudo -u h2o unzip "${TMP_DIR}/${H2O_PACKAGE}" -d /opt/
   rm -rf "${TMP_DIR}/${H2O_PACKAGE}"
   sudo -u h2o ln -s /opt/h2o-${H2O_VERSION} /opt/h2o
-  sudo -u cp "${REPO_DIR}/utils/run-h2owebui.sh" /opt/h2o/
+  sudo -u h2o cp "${REPO_DIR}/utils/run-h2owebui.sh" /opt/h2o/
+ 
   touch "${TRACKING_DIR}/.h2o"
 }
 
