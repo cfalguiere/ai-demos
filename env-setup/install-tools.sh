@@ -11,11 +11,13 @@ TRACKING_DIR="/var/log/aidemos/setup"
 mkdir -p "${TRACKING_DIR}"
 chgrp tools "${TRACKING_DIR}"
 chmod g+w "${TRACKING_DIR}"
+echo "TRACKING_DIR=$TRACKING_DIR"
 
 TMP_DIR="/tmp/aidemos/install"
 mkdir -p "${TMP_DIR}"
 chgrp tools "${TMP_DIR}"
 chmod g+w "${TMP_DIR}"
+echo "WORK_DIR=$TMP_DIR"
 
 REPO_DIR="/var/git-repos/ai-demos"
 
@@ -126,10 +128,10 @@ cd $TMP_DIR
 
 /opt/web/run-simpleweb.sh
 
-sudo -u h2o /opt/h2o/run-h2owebui.sh
-sudo -u mlflow /opt/mlflow/run-mlflowui.sh
-sudo -u airflow /opt/airflow/run-airflow.sh
-sudo -u jupyter /opt/jupyter/run-jupyter.sh
+sudo -u -H h2o /opt/h2o/run-h2owebui.sh
+sudo -u -H mlflow /opt/mlflow/run-mlflowui.sh
+sudo -u -H airflow /opt/airflow/run-airflow.sh
+sudo -u -H jupyter /opt/jupyter/run-jupyter.sh
 
 [[ -z "${TMP_DIR}" ]] || rm -rf "${TMP_DIR}"
 
