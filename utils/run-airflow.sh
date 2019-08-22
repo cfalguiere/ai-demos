@@ -2,7 +2,7 @@
 # tested against  a AWS EC2 instance with a Linux 2 VM (Ubuntu)
 
 set -eu
-trap "{ echo 'ERROR - MLflow UI failed' ; exit 255; }" SIGINT SIGTERM ERR
+trap "{ echo 'ERROR - Airflow UI failed' ; exit 255; }" SIGINT SIGTERM ERR
 
 # initialize the database
 
