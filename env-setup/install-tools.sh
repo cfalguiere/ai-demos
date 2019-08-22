@@ -9,12 +9,21 @@ trap "{ echo 'ERROR - install failed' ; exit 255; }" SIGINT SIGTERM ERR
 
 TRACKING_DIR="/var/log/aidemos/setup"
 mkdir -p "${TRACKING_DIR}"
+chgrp tools "${TRACKING_DIR}"
+chmod g+w "${TRACKING_DIR}"
+
 TMP_DIR="/tmp/aidemos/install"
 mkdir -p "${TMP_DIR}"
+chgrp tools "${TMP_DIR}"
+chmod g+w "${TMP_DIR}"
+
+REPO_DIR="/var/git-repos/ai-demos"
 
 mkdir -p /opt/
 chgrp tools /opt/
 chmod g+w /opt/
+
+cd $TMP_DIR
 
 # anaconda
 [[ -f "${TRACKING_DIR}/.anaconda" ]] || {
@@ -27,7 +36,7 @@ chmod g+w /opt/
   rm -rf "${TMP_DIR}/miniconda.sh"
   /opt/miniconda/bin/conda --version
   sudo -u anaconda /opt/miniconda/bin/conda update -y conda
-  sudo -u anaconda cp env-setup/admin-condarc /opt/miniconda/.condarc
+  sudo -u anaconda cp "${REPO_DIR}/env-setup/admin-condarc" /opt/miniconda/.condarc
   # chown -R anaconda:tools /opt/miniconda
   ln -s /opt/miniconda/etc/profile.d/conda.sh /etc/profile.d/conda.sh
   touch "${TRACKING_DIR}/.anaconda" 
@@ -59,7 +68,7 @@ chmod g+w /opt/
   sudo -u h2o unzip "${TMP_DIR}/${H2O_PACKAGE}" -d /opt/
   rm -rf "${TMP_DIR}/${H2O_PACKAGE}"
   sudo -u h2o ln -s /opt/h2o-${H2O_VERSION} /opt/h2o
-  sudo -u cp utils/run-h2owebui.sh /opt/h2o/
+  sudo -u cp "${REPO_DIR}/utils/run-h2owebui.sh" /opt/h2o/
   touch "${TRACKING_DIR}/.h2o"
 }
 
@@ -80,8 +89,8 @@ chmod g+w /opt/
 [[ -f "${TRACKING_DIR}/.web" ]] || {
   echo "=== setup webserver"
   mkdir -p /opt/web
-  env-setup/index.html.dd > /opt/web/index.html
-  cp utils/run-simpleweb.sh /opt/web/run-simpleweb.sh
+  "${REPO_DIR}/env-setup/index.html.dd" > /opt/web/index.html
+  cp "${REPO_DIR}/utils/run-simpleweb.sh" /opt/web/run-simpleweb.sh
   touch "${TRACKING_DIR}/.web"
 }
 
@@ -90,7 +99,7 @@ chmod g+w /opt/
 [[ -f "${TRACKING_DIR}/.mlflow" ]] || {
   echo "=== installing mlflow"
   sudo -u mlflow mkdir -p /opt/mlflow
-  sudo -u mlflow cp utils/run-mlflowui.sh /opt/mlflow/run-mlflowui.sh
+  sudo -u mlflow cp "${REPO_DIR}/utils/run-mlflowui.sh" /opt/mlflow/run-mlflowui.sh
   touch "${TRACKING_DIR}/.mlflow"
 }
 
@@ -99,7 +108,7 @@ chmod g+w /opt/
 [[ -f "${TRACKING_DIR}/.airflow" ]] || {
   echo "=== installing airflow"
   sudo -u airflow mkdir -p /opt/airflow
-  sudo -u airflow cp utils/run-airflow.sh /opt/airflow/run-airflow.sh
+  sudo -u airflow cp "${REPO_DIR}/utils/run-airflow.sh" /opt/airflow/run-airflow.sh
   echo "=== initializing airflow database "
   sudo -u airflow tmux new -d -s airflowdb bash -c "source /etc/profile.d/conda.sh; conda activate python36; cd /opt/airflow/; airflow initdb 2>&1 | tee ${TRACKING_DIR}/airflow-initdb.out; touch ${TRACKING_DIR}/.airflow-initdb"
   [[ -f "${TRACKING_DIR}/.airflow-initdb" ]] && echo "=== airflow database initialization airflow done "
@@ -110,7 +119,7 @@ chmod g+w /opt/
 [[ -f "${TRACKING_DIR}/.jupyter" ]] || {
   echo "=== installing jupyter"
   sudo -u jupyter mkdir -p /opt/jupyter
-  sudo -u jupyter cp utils/run-jupyter.sh /opt/jupyter/run-jupyter.sh
+  sudo -u jupyter cp "${REPO_DIR}/utils/run-jupyter.sh" /opt/jupyter/run-jupyter.sh
   touch "${TRACKING_DIR}/.jupyter"
 }
 
