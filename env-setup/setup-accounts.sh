@@ -4,11 +4,6 @@
 set -eu
 trap "{ echo 'ERROR - user creation failed' ; exit 255; }" SIGINT SIGTERM ERR
 
-# tools dir 
-mkdir -p /opt/
-chgrp tools /opt/
-chmod g+w /opt/
-
 # create groups
 echo "INFO - creating groups"
 
