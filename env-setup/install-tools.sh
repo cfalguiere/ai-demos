@@ -20,12 +20,12 @@ env | grep "AIDEMOS"
 
   ANACONDA_VERSION="Anaconda3-2019.07-Linux-x86_64.sh"
   ANACONDA_URL="https://repo.anaconda.com/archive/${ANACONDA_VERSION}"
-  wget -q  "${ANACONDA_URL}"  -O "${TMP_DIR}/miniconda.sh"
-  sudo -u anaconda bash "${TMP_DIR}/miniconda.sh" -b -p /opt/miniconda
+  wget -q  "${ANACONDA_URL}"  -O "${AIDEMOS_TMP_DIR}/miniconda.sh"
+  sudo -u anaconda bash "${AIDEMOS_TMP_DIR}/miniconda.sh" -b -p /opt/miniconda
   rm -rf "${AIDEMOS_TMP_DIR}/miniconda.sh"
   /opt/miniconda/bin/conda --version
   sudo -u anaconda /opt/miniconda/bin/conda update -y conda
-  sudo -u anaconda cp "${REPO_DIR}/env-setup/admin-condarc" /opt/miniconda/.condarc
+  sudo -u anaconda cp "${AIDEMOS_REPO_DIR}/env-setup/admin-condarc" /opt/miniconda/.condarc
   # chown -R anaconda:tools /opt/miniconda
   ln -s /opt/miniconda/etc/profile.d/conda.sh /etc/profile.d/conda.sh
   touch "${AIDEMOS_TRACKING_DIR}/.anaconda" 
