@@ -28,7 +28,7 @@ env | grep "AIDEMOS"
   sudo -u anaconda cp "${AIDEMOS_REPO_DIR}/env-setup/admin-condarc" /opt/miniconda/.condarc
   # chown -R anaconda:tools /opt/miniconda
   ln -s /opt/miniconda/etc/profile.d/conda.sh /etc/profile.d/conda.sh
-  touch "${AIDEMOS_TRACKING_DIR}/.anaconda" 
+  touch "${AIDEMOS_TRACKING_DIR}/.anaconda"
 }
 
 [[ -f "${AIDEMOS_TRACKING_DIR}/.env-python3" ]] || {
@@ -84,7 +84,7 @@ env | grep "AIDEMOS"
 }
 
 
-# mlflow 
+# mlflow
 [[ -f "${AIDEMOS_TRACKING_DIR}/.mlflow" ]] || {
   echo "=== installing mlflow"
   sudo -u mlflow mkdir -p /opt/mlflow
@@ -93,7 +93,7 @@ env | grep "AIDEMOS"
 }
 
 
-# airflow 
+# airflow
 [[ -f "${AIDEMOS_TRACKING_DIR}/.airflow" ]] || {
   echo "=== installing airflow"
   sudo -u airflow mkdir -p /opt/airflow
@@ -101,6 +101,7 @@ env | grep "AIDEMOS"
   echo "=== initializing airflow database "
   sudo -u airflow tmux new -d -s airflowdb bash -c "source /etc/profile.d/conda.sh; conda activate python36; cd /opt/airflow/; airflow initdb 2>&1 | tee ${AIDEMOS_TRACKING_DIR}/airflow-initdb.out; touch ${AIDEMOS_TRACKING_DIR}/.airflow-initdb"
   [[ -f "${AIDEMOS_TRACKING_DIR}/.airflow-initdb" ]] && echo "=== airflow database initialization airflow done "
+  sudo -u mlflow sed -i "s/localhost/${PUBLIC_IP}/" /opt/airflow/airflow/airflow.cfg
   touch "${AIDEMOS_TRACKING_DIR}/.airflow"
 }
 
