@@ -14,4 +14,3 @@ trap "{ echo 'ERROR - MLflow UI failed' ; exit 255; }" SIGINT SIGTERM ERR
 # TODO check for existence
 
 echo "INFO - MLFlow UI started"
-@
