@@ -101,7 +101,6 @@ env | grep "AIDEMOS"
   echo "=== initializing airflow database "
   sudo -u airflow tmux new -d -s airflowdb bash -c "source /etc/profile.d/conda.sh; conda activate python36; cd /opt/airflow/; airflow initdb 2>&1 | tee ${AIDEMOS_TRACKING_DIR}/airflow-initdb.out; touch ${AIDEMOS_TRACKING_DIR}/.airflow-initdb"
   [[ -f "${AIDEMOS_TRACKING_DIR}/.airflow-initdb" ]] && echo "=== airflow database initialization airflow done "
-  sudo -u mlflow sed -i "s/localhost/${PUBLIC_IP}/" /opt/airflow/airflow/airflow.cfg
   touch "${AIDEMOS_TRACKING_DIR}/.airflow"
 }
 
