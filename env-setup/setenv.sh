@@ -8,20 +8,22 @@
 set -eu
 trap "{ echo 'ERROR - setenv failed' ; exit 255; }" SIGINT SIGTERM ERR
 
-AIDEMOS_TRACKING_DIR="/var/log/aidemos/setup"
+export LOCAL_IP=$( curl --silent http://169.254.169.254/latest/meta-data/local-ipv4 )
+export PUBLIC_IP=$( curl --silent http://169.254.169.254/latest/meta-data/public-ipv4 )
+
+export AIDEMOS_TRACKING_DIR="/var/log/aidemos/setup"
 mkdir -p "${AIDEMOS_TRACKING_DIR}"
 chgrp tools "${AIDEMOS_TRACKING_DIR}"
 chmod g+w "${AIDEMOS_TRACKING_DIR}"
 echo "AIDEMOS_TRACKING_DIR=$AIDEMOS_TRACKING_DIR"
-export AIDEMOS_TRACKING_DIR
 
-AIDEMOS_TMP_DIR="/tmp/aidemos/install"
+export AIDEMOS_TMP_DIR="/tmp/aidemos/install"
 mkdir -p "${AIDEMOS_TMP_DIR}"
 chgrp tools "${AIDEMOS_TMP_DIR}"
 chmod g+w "${AIDEMOS_TMP_DIR}"
 echo "AIDEMOS_WORK_DIR=$AIDEMOS_TMP_DIR"
-export AIDEMOS_TMP_DIR
 
-AIDEMOS_REPO_DIR="/var/git-repos/ai-demos"
-export AIDEMOS_REPO_DIR
 
+export AIDEMOS_REPO_DIR="/var/git-repos/ai-demos"
+
+echo "INFO - setenv Completed"
