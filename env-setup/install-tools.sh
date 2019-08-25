@@ -103,11 +103,11 @@ cd $AIDEMOS_TMP_DIR
 
 # airflow
 [[ -f "${AIDEMOS_TRACKING_DIR}/.airflow" ]] || {
-  echo "=== installing airflow"
+  echo "=== installing Airflow"
   sudo -u airflow rsync -avh "${AIDEMOS_REPO_DIR}/utils/airflow/" /opt/airflow/
-  echo "=== initializing airflow database "
-  sudo -u airflow tmux new -d -s airflowdb bash -c "source /etc/profile.d/conda.sh; conda activate python36; cd /opt/airflow/; airflow initdb 2>&1 | tee ${AIDEMOS_TRACKING_DIR}/airflow-initdb.out; touch ${AIDEMOS_TRACKING_DIR}/.airflow-initdb"
-  [[ -f "${AIDEMOS_TRACKING_DIR}/.airflow-initdb" ]] && echo "=== airflow database initialization airflow done "
+  echo "=== initializing Airflow database "
+  sudo -u airflow tmux new -d -s airflowdb bash -c "cd /opt/airflow; source etc/setenv.sh; airflow initdb 2>&1 | tee -a /var/log/airflow/airflow-initdb.out; touch /var/log/airflow/.airflow-initdb"
+  [[ -f /var/log/airflow/.airflow-initdb ]] && echo "=== Airflow database initialization COMPLETED "
   #sudo -u airflow sed -i "s/localhost/${PUBLIC_IP}/" /opt/airflow/airflow/airflow.cfg
   touch "${AIDEMOS_TRACKING_DIR}/.airflow"
 }
