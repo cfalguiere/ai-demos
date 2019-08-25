@@ -118,7 +118,7 @@ cd $AIDEMOS_TMP_DIR
 [[ -f "${AIDEMOS_TRACKING_DIR}/.jupyter" ]] || {
   echo "=== installing jupyter"
   sudo -u jupyter mkdir -p /opt/jupyter
-  sudo -u jupyter rsync avh "${AIDEMOS_REPO_DIR}/utils/jupyter/" /opt/jupyter/
+  sudo -u jupyter rsync -avh "${AIDEMOS_REPO_DIR}/utils/jupyter/" /opt/jupyter/
   touch "${AIDEMOS_TRACKING_DIR}/.jupyter"
 }
 
