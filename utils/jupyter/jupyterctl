@@ -16,23 +16,21 @@ case $action in
       echo "=== starting Jupyter"
       tmux new -d -s jupyter bash -c 'cd /opt/jupyter; source etc/setenv.sh; jupyter notebook --no-browser --ip 0.0.0.0 | tee -a /var/log/aidemos/jupyter/jupyter.out' &
       # show token
-      tmux new -d -s jupyter bash -c 'cd /opt/jupyter; source etc/setenv.sh; jupyter notebook list'
+      tmux new -d -s jupyter-list bash -c 'cd /opt/jupyter; source etc/setenv.sh; jupyter notebook list'
+      echo "INFO - Jupyter started"
     }
     # TODO check for existence
-    echo "INFO - Jupyter started"
     ;;
   stop)
     ! tmux has-session -t jupyter  2>/dev/null && {
       #TODO log arret
       echo "=== stopping Jupyter"
       tmux kil-session -t jupyter
+      echo "INFO - Jupyter stopped"
     }
     ;;
   list)
-    ! tmux has-session -t jupyter  2>/dev/null && {
-      echo "=== stopping Jupyter"
-      tmux kil-session -t jupyter
-    }
+    tmux new -d -s jupyter-list bash -c 'cd /opt/jupyter; source etc/setenv.sh; jupyter notebook list'
     ;;
   *)
     echo "ERROR - unknow action action"
