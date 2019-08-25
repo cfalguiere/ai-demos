@@ -4,7 +4,7 @@
 set -eu
 trap "{ echo 'ERROR - AirFlow action failed' ; exit 255; }" SIGINT SIGTERM ERR
 
-[ $# -eq 1 ]] || { echo 'ERROR - AirFlow missing action'; exit 255; }
+[[ $# -eq 1 ]] || { echo 'ERROR - AirFlow missing action'; exit 255; }
 
 action=$1
 

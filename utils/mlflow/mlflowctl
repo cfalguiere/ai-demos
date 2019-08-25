@@ -4,7 +4,7 @@
 set -eu
 trap "{ echo 'ERROR - MLflow UI action failed' ; exit 255; }" SIGINT SIGTERM ERR
 
-[ $# -eq 1 ]] || { echo 'ERROR - MLFlow Server missing action'; exit 255; }
+[[ $# -eq 1 ]] || { echo 'ERROR - MLFlow Server missing action'; exit 255; }
 
 action=$1
 
