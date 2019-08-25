@@ -1,0 +1,41 @@
+#!/bin/bash
+# tested against  a AWS EC2 instance with a Linux 2 VM (Ubuntu)
+# run a jupyter
+
+set -eu
+trap "{ echo 'ERROR - Jupyter action failed' ; exit 255; }" SIGINT SIGTERM ERR
+
+[[ $# -eq 1 ]] || { echo 'ERROR - Jupyter action failed'; exit 255; }
+
+action=$1
+
+case $action in
+  start)
+    #TODO timestamp sur le log
+    ! tmux has-session -t jupyter  2>/dev/null && {
+      echo "=== starting Jupyter"
+      tmux new -d -s jupyter bash -c 'cd /opt/jupyter; source etc/setenv.sh; jupyter notebook --no-browser --ip 0.0.0.0 | tee -a /var/log/aidemos/jupyter/jupyter.out' &
+      # show token
+      tmux new -d -s jupyter bash -c 'cd /opt/jupyter; source etc/setenv.sh; jupyter notebook list'
+    }
+    # TODO check for existence
+    echo "INFO - Jupyter started"
+    ;;
+  stop)
+    ! tmux has-session -t jupyter  2>/dev/null && {
+      #TODO log arret
+      echo "=== stopping Jupyter"
+      tmux kil-session -t jupyter
+    }
+    ;;
+  list)
+    ! tmux has-session -t jupyter  2>/dev/null && {
+      echo "=== stopping Jupyter"
+      tmux kil-session -t jupyter
+    }
+    ;;
+  *)
+    echo "ERROR - unknow action action"
+    exit -1
+    ;;
+esac

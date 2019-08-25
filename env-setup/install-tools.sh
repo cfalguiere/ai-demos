@@ -14,9 +14,10 @@ trap "{ echo 'ERROR - install failed' ; exit 255; }" SIGINT SIGTERM ERR
 env | grep "AIDEMOS"
 
 mkdir -p "${AIDEMOS_TRACKING_DIR}"
-mkdir -p "${AIDEMOS_TMP_DIR}"
 chgrp tools "${AIDEMOS_TRACKING_DIR}"
 chmod g+w "${AIDEMOS_TRACKING_DIR}"
+
+mkdir -p "${AIDEMOS_TMP_DIR}"
 chgrp tools "${AIDEMOS_TMP_DIR}"
 chmod g+w "${AIDEMOS_TMP_DIR}"
 
@@ -117,7 +118,7 @@ cd $AIDEMOS_TMP_DIR
 [[ -f "${AIDEMOS_TRACKING_DIR}/.jupyter" ]] || {
   echo "=== installing jupyter"
   sudo -u jupyter mkdir -p /opt/jupyter
-  sudo -u jupyter cp "${AIDEMOS_REPO_DIR}/utils/run-jupyter.sh" /opt/jupyter/run-jupyter.sh
+  sudo -u jupyter rsync avh "${AIDEMOS_REPO_DIR}/utils/jupyter/" /opt/jupyter/
   touch "${AIDEMOS_TRACKING_DIR}/.jupyter"
 }
 
@@ -126,7 +127,7 @@ cd $AIDEMOS_TMP_DIR
 sudo -H -u h2o /opt/h2o/run-h2owebui.sh
 sudo -H -u mlflow /opt/mlflow/run-mlflowui.sh
 sudo -H -u airflow /opt/airflow/run-airflow.sh
-sudo -H -u jupyter /opt/jupyter/run-jupyter.sh
+sudo -H -u /opt/jupyter/jupyterctl start
 
 [[ -z "${AIDEMOS_TMP_DIR}" ]] || rm -rf "${AIDEMOS_TMP_DIR}"
 
