@@ -10,17 +10,17 @@ echo "INFO - starting install-tools $( date )"
 set -eu
 trap "{ echo 'ERROR - install failed' ; exit 255; }" SIGINT SIGTERM ERR
 
-cd $AIDEMOS_TMP_DIR
-
+# variables set by caller through setenv
 env | grep "AIDEMOS"
 
-# variables set by caller through setenv
 mkdir -p "${AIDEMOS_TRACKING_DIR}"
 mkdir -p "${AIDEMOS_TMP_DIR}"
 chgrp tools "${AIDEMOS_TRACKING_DIR}"
 chmod g+w "${AIDEMOS_TRACKING_DIR}"
 chgrp tools "${AIDEMOS_TMP_DIR}"
 chmod g+w "${AIDEMOS_TMP_DIR}"
+
+cd $AIDEMOS_TMP_DIR
 
 # anaconda
 [[ -f "${AIDEMOS_TRACKING_DIR}/.anaconda" ]] || {
