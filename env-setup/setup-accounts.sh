@@ -29,13 +29,11 @@ done
 
 for account in h2o mlflow airflow jupyter
 do
+  sudo -u ${account} mkdir -p /opt/${account}
   # data
-  mkdir -p /data/aidemos/${account}
-  chown ${account}:tools /data/aidemos/${account}
-
+  sudo -u ${account} mkdir -p /data/aidemos/${account}
   # logs
-  mkdir -p /var/logs/aidemos/${account}
-  chown ${account}:tools /var/logs/aidemos/${account}
+  sudo -u ${account} mkdir -p /var/logs/aidemos/${account}
 
 done
 
