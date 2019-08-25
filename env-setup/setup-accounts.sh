@@ -31,8 +31,12 @@ for account in h2o mlflow airflow jupyter
 do
   # data
   mkdir -p /data/aidemos/${account}
+  chown ${account}:tools /data/aidemos/${account}
+
   # logs
   mkdir -p /var/logs/aidemos/${account}
+  chown ${account}:tools /var/logs/aidemos/${account}
+
 done
 
 echo "INFO - accounts created"
