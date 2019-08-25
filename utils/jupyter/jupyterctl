@@ -16,7 +16,7 @@ case $action in
       echo "=== starting Jupyter"
       tmux new -d -s jupyter bash -c 'cd /opt/jupyter; source etc/setenv.sh; jupyter notebook --no-browser --ip 0.0.0.0 | tee -a /var/log/aidemos/jupyter/jupyter.out' &
       # show token
-      tmux new -d -s jupyter-list bash -c 'cd /opt/jupyter; source etc/setenv.sh; jupyter notebook list'
+      #tmux new -d -s jupyter-list bash -c 'cd /opt/jupyter; source etc/setenv.sh; jupyter notebook list'
       echo "INFO - Jupyter started"
     }
     # TODO check for existence
