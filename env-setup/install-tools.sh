@@ -97,7 +97,7 @@ cd $AIDEMOS_TMP_DIR
 # mlflow
 [[ -f "${AIDEMOS_TRACKING_DIR}/.mlflow" ]] || {
   echo "=== installing mlflow"
-  sudo -u jupyter rsync -avh "${AIDEMOS_REPO_DIR}/utils/mlflow/" /opt/mlflow/
+  sudo -u mlflow rsync -avh "${AIDEMOS_REPO_DIR}/utils/mlflow/" /opt/mlflow/
   touch "${AIDEMOS_TRACKING_DIR}/.mlflow"
 }
 
@@ -105,8 +105,7 @@ cd $AIDEMOS_TMP_DIR
 # airflow
 [[ -f "${AIDEMOS_TRACKING_DIR}/.airflow" ]] || {
   echo "=== installing airflow"
-  sudo -u airflow mkdir -p /opt/airflow
-  sudo -u airflow cp "${AIDEMOS_REPO_DIR}/utils/run-airflow.sh" /opt/airflow/run-airflow.sh
+  sudo -u airflow rsync -avh "${AIDEMOS_REPO_DIR}/utils/airflow/" /opt/airflow/
   echo "=== initializing airflow database "
   sudo -u airflow tmux new -d -s airflowdb bash -c "source /etc/profile.d/conda.sh; conda activate python36; cd /opt/airflow/; airflow initdb 2>&1 | tee ${AIDEMOS_TRACKING_DIR}/airflow-initdb.out; touch ${AIDEMOS_TRACKING_DIR}/.airflow-initdb"
   [[ -f "${AIDEMOS_TRACKING_DIR}/.airflow-initdb" ]] && echo "=== airflow database initialization airflow done "
@@ -125,7 +124,7 @@ cd $AIDEMOS_TMP_DIR
 
 sudo -H -u h2o /opt/h2o/h2oflowctl start
 sudo -H -u mlflow /opt/mlflow/mlflowctl start
-sudo -H -u airflow /opt/airflow/run-airflow.sh
+sudo -H -u airflow /opt/airflow/airflowctl start
 sudo -H -u jupyter /opt/jupyter/jupyterctl start
 
 [[ -z "${AIDEMOS_TMP_DIR}" ]] || rm -rf "${AIDEMOS_TMP_DIR}"

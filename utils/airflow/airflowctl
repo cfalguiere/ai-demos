@@ -1,0 +1,45 @@
+#!/bin/bash
+# tested against  a AWS EC2 instance with a Linux 2 VM (Ubuntu)
+
+set -eu
+trap "{ echo 'ERROR - AirFlow action failed' ; exit 255; }" SIGINT SIGTERM ERR
+
+[ $# -eq 1 ]] || { echo 'ERROR - AirFlow missing action'; exit 255; }
+
+action=$1
+
+case $action in
+  start)
+    #TODO timestamp sur le log
+    # start the web server, default port is 8080
+    ! tmux has-session -t airflowws 2>/dev/null && {
+      echo "=== starting AirFlow Server"
+      tmux new -d -s airflowserver bash -c "cd /opt/airflow; source etc/setenv.sh; airflow webserver -p 8080 | tee -a /var/log/aidemos/airflow/airflow-server.out" &
+    }
+
+    # start the scheduler
+    ! tmux has-session -t airflowscheduler 2>/dev/null && {
+      echo "=== starting AirFlow Scheduler"
+      tmux new -d -s airflowscheduler bash -c "cd /opt/airflow; source etc/setenv.sh; airflow scheduler | tee -a /var/log/aidemos/airflow/airflow-scheduler.out" &
+    }
+    # TODO check for existence
+    ;;
+  stop)
+    ! tmux has-session -t airflowscheduler  2>/dev/null && {
+      #TODO log arret
+      echo "=== stopping AirFlow Scheduler"
+      tmux kil-session -t airflowscheduler
+      echo "INFO - AirFlow Scheduler stopped"
+    }
+    ! tmux has-session -t airflowserver  2>/dev/null && {
+      #TODO log arret
+      echo "=== stopping AirFlow Server"
+      tmux kil-session -t airflowserver
+      echo "INFO - AirFlow Server stopped"
+    }
+    ;;
+  *)
+    echo "ERROR - unknow action action"
+    exit -1
+    ;;
+esac
