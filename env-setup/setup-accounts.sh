@@ -18,6 +18,13 @@ do
   chmod g+w $p
 done
 
+for p in /data/aidemos/projects
+do
+  mkdir -p $p
+  chgrp devs $p
+  chmod g+w $p
+done
+
 # create services
 echo "INFO - creating services"
 

@@ -10,6 +10,7 @@ echo "INFO - starting install-tools $( date )"
 set -eu
 trap "{ echo 'ERROR - install failed' ; exit 255; }" SIGINT SIGTERM ERR
 
+#TODO reintergrer setenv
 # variables set by caller through setenv
 env | grep "AIDEMOS"
 
