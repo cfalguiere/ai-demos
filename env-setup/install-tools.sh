@@ -130,4 +130,6 @@ sudo -H -u jupyter /opt/jupyter/run-jupyter.sh
 
 [[ -z "${AIDEMOS_TMP_DIR}" ]] || rm -rf "${AIDEMOS_TMP_DIR}"
 
+echo "INFO - logs in ${AIDEMOS_TRACKING_DIR}"
+echo "INFO - services are accessibles through http://${PUBLIC_IP}/index.html"
 echo "INFO - end of install-tools $( date )"
