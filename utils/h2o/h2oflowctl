@@ -16,7 +16,7 @@ case $action in
     #TODO timestamp sur le log
     ! tmux has-session -t h2oflow 2>/dev/null && {
       echo "=== starting H2O Flow Web UI"
-      tmux new -d -s h2oflow bash -c "cd /opt/h2o; java -jar h2o.jar | tee -a /var/log/aidemos/h2o/h2oflow.out" &
+      tmux new -d -s h2oflow bash -c "cd /opt/h2o/h2oflowui; java -jar h2o.jar | tee -a /var/log/aidemos/h2o/h2oflowui.out" &
       echo "INFO - H2O started"
     }
     # TODO check for existence
