@@ -5,7 +5,7 @@
 set -eu
 trap "{ echo 'ERROR - Jupyter action failed' ; exit 255; }" SIGINT SIGTERM ERR
 
-[[ $# -eq 1 ]] || { echo 'ERROR - Jupyter action failed'; exit 255; }
+[[ $# -eq 1 ]] || { echo 'ERROR - Jupyter missing action'; exit 255; }
 
 action=$1
 
