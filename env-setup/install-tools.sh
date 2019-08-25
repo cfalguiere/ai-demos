@@ -54,11 +54,19 @@ cd $AIDEMOS_TMP_DIR
   touch "${AIDEMOS_TRACKING_DIR}/.env-r"
 }
 
+[[ -f "${AIDEMOS_TRACKING_DIR}/.web" ]] || {
+  echo "=== setup webserver"
+  mkdir -p /opt/web
+  "${AIDEMOS_REPO_DIR}/env-setup/index.html.dd" > /opt/web/index.html
+  cp "${AIDEMOS_REPO_DIR}/utils/run-simpleweb.sh" /opt/web/run-simpleweb.sh
+  touch "${AIDEMOS_TRACKING_DIR}/.web"
+}
+
 
 # h2o
 [[ -f "${AIDEMOS_TRACKING_DIR}/.h2o" ]] || {
   echo "=== installing h2o standalone"
-  sudo -u h2o rsync -avh "${AIDEMOS_REPO_DIR}/utils/h2o/" /opt/jupyter/
+  sudo -u h2o rsync -avh "${AIDEMOS_REPO_DIR}/utils/h2o/" /opt/h2o/
   # https://www.h2o.ai/download/#h2o
   H2O_VERSION="3.26.0.2"
   H2O_PACKAGE="h2o-${H2O_VERSION}.zip"
@@ -85,20 +93,11 @@ cd $AIDEMOS_TMP_DIR
   touch "${AIDEMOS_TRACKING_DIR}/.h2o-sparkling-water"
 }
 
-[[ -f "${AIDEMOS_TRACKING_DIR}/.web" ]] || {
-  echo "=== setup webserver"
-  mkdir -p /opt/web
-  "${AIDEMOS_REPO_DIR}/env-setup/index.html.dd" > /opt/web/index.html
-  cp "${AIDEMOS_REPO_DIR}/utils/run-simpleweb.sh" /opt/web/run-simpleweb.sh
-  touch "${AIDEMOS_TRACKING_DIR}/.web"
-}
-
 
 # mlflow
 [[ -f "${AIDEMOS_TRACKING_DIR}/.mlflow" ]] || {
   echo "=== installing mlflow"
-  sudo -u mlflow mkdir -p /opt/mlflow
-  sudo -u mlflow cp "${AIDEMOS_REPO_DIR}/utils/run-mlflowui.sh" /opt/mlflow/run-mlflowui.sh
+  sudo -u jupyter rsync -avh "${AIDEMOS_REPO_DIR}/utils/mlflow/" /opt/mlflow/
   touch "${AIDEMOS_TRACKING_DIR}/.mlflow"
 }
 
@@ -125,7 +124,7 @@ cd $AIDEMOS_TMP_DIR
 /opt/web/run-simpleweb.sh
 
 sudo -H -u h2o /opt/h2o/h2oflowctl start
-sudo -H -u mlflow /opt/mlflow/run-mlflowui.sh
+sudo -H -u mlflow /opt/mlflow/mlflowctl start
 sudo -H -u airflow /opt/airflow/run-airflow.sh
 sudo -H -u jupyter /opt/jupyter/jupyterctl start
 

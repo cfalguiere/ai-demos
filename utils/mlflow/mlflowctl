@@ -1,0 +1,33 @@
+#!/bin/bash
+# tested against  a AWS EC2 instance with a Linux 2 VM (Ubuntu)
+
+set -eu
+trap "{ echo 'ERROR - MLflow UI failed' ; exit 255; }" SIGINT SIGTERM ERR
+
+[ $# -eq 1 ]] || { echo 'ERROR - MLFlow Server missing action'; exit 255; }
+
+action=$1
+
+case $action in
+  start)
+    #TODO timestamp sur le log
+    ! tmux has-session -t mlflowui  2>/dev/null && {
+      echo "=== starting MLFlow Server"
+      tmux new -d -s mlflowui bash -c 'cd /opt/mlflow; source etc/setenv.sh; mlflow server --backend-store-uri /opt/mlflow/mlruns  --default-artifact-root /opt/mlflow/mlruns --host 0.0.0.0 | tee -a /var/log/aidemos/mlflow/mlflowui.out' &
+      echo "INFO - MLFlow Server started"
+    }
+    # TODO check for existence
+    ;;
+  stop)
+    ! tmux has-session -t mlflowui  2>/dev/null && {
+      #TODO log arret
+      echo "=== stopping MLFlow Server"
+      tmux kil-session -t mlflowui
+      echo "INFO - MLFlow Server stopped"
+    }
+    ;;
+  *)
+    echo "ERROR - unknow action action"
+    exit -1
+    ;;
+esac
