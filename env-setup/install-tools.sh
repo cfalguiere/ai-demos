@@ -113,7 +113,6 @@ cd $AIDEMOS_TMP_DIR
   touch "${AIDEMOS_TRACKING_DIR}/.jupyter"
 }
 
-/opt/web/run-simpleweb.sh
 
 sudo -H -u h2o /opt/h2o/h2oflowctl start
 sudo -H -u mlflow /opt/mlflow/mlflowctl start
@@ -121,6 +120,8 @@ sudo -H -u airflow /opt/airflow/airflowctl start
 sudo -H -u jupyter /opt/jupyter/jupyterctl start
 
 export AIDEMOS_TOKEN=$( awk '{BEGIN FS="="};/$1 ~ ".*token"/ {print $2}' /var/log/aidemos/jupyter/jupyter.out
+
+/opt/web/run-simpleweb.sh
 
 
 [[ -f "${AIDEMOS_TRACKING_DIR}/.web" ]] || {
