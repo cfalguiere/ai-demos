@@ -36,7 +36,7 @@ do
   # data
   sudo -u ${account} mkdir -p /data/aidemos/${account}
   # logs
-  sudo -u ${account} mkdir -p /var/logs/aidemos/${account}
+  sudo -u ${account} mkdir -p /var/log/aidemos/${account}
 
 done
 
