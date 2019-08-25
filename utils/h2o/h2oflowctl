@@ -1,0 +1,36 @@
+#!/bin/bash
+# tested against  a AWS EC2 instance with a Linux 2 VM (Ubuntu)
+
+set -eu
+trap "{ echo 'ERROR - H2O UI failed' ; exit 255; }" SIGINT SIGTERM ERR
+
+# TODO check h2o for existence
+# TODO check java for existence
+
+[[ $# -eq 1 ]] || { echo 'ERROR - H2O action failed'; exit 255; }
+
+action=$1
+
+case $action in
+  start)
+    #TODO timestamp sur le log
+    ! tmux has-session -t h2o 2>/dev/null && {
+      echo "=== starting H2O Web UI"
+      tmux new -d -s h2o bash -c "cd /opt/h2o; java -jar h2o.jar" &
+      echo "INFO - H2O started"
+    }
+    # TODO check for existence
+    ;;
+  stop)
+    ! tmux has-session -t h2o  2>/dev/null && {
+      #TODO log arret
+      echo "=== stopping H2O"
+      tmux kil-session -t h2o
+      echo "INFO - H2O stopped"
+    }
+    ;;
+  *)
+    echo "ERROR - unknow action action"
+    exit -1
+    ;;
+esac

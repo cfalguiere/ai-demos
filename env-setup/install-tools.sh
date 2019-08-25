@@ -58,6 +58,7 @@ cd $AIDEMOS_TMP_DIR
 # h2o
 [[ -f "${AIDEMOS_TRACKING_DIR}/.h2o" ]] || {
   echo "=== installing h2o standalone"
+  sudo -u h2o rsync -avh "${AIDEMOS_REPO_DIR}/utils/h2o/" /opt/jupyter/
   # https://www.h2o.ai/download/#h2o
   H2O_VERSION="3.26.0.2"
   H2O_PACKAGE="h2o-${H2O_VERSION}.zip"
@@ -117,14 +118,13 @@ cd $AIDEMOS_TMP_DIR
 # jupyter
 [[ -f "${AIDEMOS_TRACKING_DIR}/.jupyter" ]] || {
   echo "=== installing jupyter"
-  sudo -u jupyter mkdir -p /opt/jupyter
   sudo -u jupyter rsync -avh "${AIDEMOS_REPO_DIR}/utils/jupyter/" /opt/jupyter/
   touch "${AIDEMOS_TRACKING_DIR}/.jupyter"
 }
 
 /opt/web/run-simpleweb.sh
 
-sudo -H -u h2o /opt/h2o/run-h2owebui.sh
+sudo -H -u h2o /opt/h2o/h2oflowctl start
 sudo -H -u mlflow /opt/mlflow/run-mlflowui.sh
 sudo -H -u airflow /opt/airflow/run-airflow.sh
 sudo -H -u jupyter /opt/jupyter/jupyterctl start
