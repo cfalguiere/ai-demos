@@ -12,15 +12,9 @@ export LOCAL_IP=$( curl --silent http://169.254.169.254/latest/meta-data/local-i
 export PUBLIC_IP=$( curl --silent http://169.254.169.254/latest/meta-data/public-ipv4 )
 
 export AIDEMOS_TRACKING_DIR="/var/log/aidemos/setup"
-mkdir -p "${AIDEMOS_TRACKING_DIR}"
-chgrp tools "${AIDEMOS_TRACKING_DIR}"
-chmod g+w "${AIDEMOS_TRACKING_DIR}"
 echo "AIDEMOS_TRACKING_DIR=$AIDEMOS_TRACKING_DIR"
 
 export AIDEMOS_TMP_DIR="/tmp/aidemos/install"
-mkdir -p "${AIDEMOS_TMP_DIR}"
-chgrp tools "${AIDEMOS_TMP_DIR}"
-chmod g+w "${AIDEMOS_TMP_DIR}"
 echo "AIDEMOS_WORK_DIR=$AIDEMOS_TMP_DIR"
 
 
