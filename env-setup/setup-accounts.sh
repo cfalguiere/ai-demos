@@ -11,9 +11,12 @@ groupadd devs
 groupadd tools
 
 # tools dir
-mkdir -p /opt/
-chgrp tools /opt/
-chmod g+w /opt/
+for p in /opt/ /data/aidemos/ /var/log/aidemos/
+do
+  mkdir -p $p
+  chgrp tools $p
+  chmod g+w $p
+done
 
 # create services
 echo "INFO - creating services"
