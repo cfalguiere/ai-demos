@@ -127,7 +127,7 @@ cd $AIDEMOS_TMP_DIR
 sudo -H -u h2o /opt/h2o/run-h2owebui.sh
 sudo -H -u mlflow /opt/mlflow/run-mlflowui.sh
 sudo -H -u airflow /opt/airflow/run-airflow.sh
-sudo -H -u /opt/jupyter/jupyterctl start
+sudo -H -u jupyter /opt/jupyter/jupyterctl start
 
 [[ -z "${AIDEMOS_TMP_DIR}" ]] || rm -rf "${AIDEMOS_TMP_DIR}"
 
