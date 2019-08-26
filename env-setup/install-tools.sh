@@ -121,7 +121,6 @@ sudo -H -u jupyter /opt/jupyter/jupyterctl start
 
 export AIDEMOS_TOKEN=$( awk '{BEGIN FS="="};/$1 ~ ".*token"/ {print $2}' /var/log/aidemos/jupyter/jupyter.out )
 
-/opt/web/run-simpleweb.sh
 
 
 [[ -f "${AIDEMOS_TRACKING_DIR}/.web" ]] || {
@@ -131,6 +130,8 @@ export AIDEMOS_TOKEN=$( awk '{BEGIN FS="="};/$1 ~ ".*token"/ {print $2}' /var/lo
   cp "${AIDEMOS_REPO_DIR}/utils/run-simpleweb.sh" /opt/web/run-simpleweb.sh
   touch "${AIDEMOS_TRACKING_DIR}/.web"
 }
+
+/opt/web/run-simpleweb.sh
 
 
 [[ -z "${AIDEMOS_TMP_DIR}" ]] || rm -rf "${AIDEMOS_TMP_DIR}"
