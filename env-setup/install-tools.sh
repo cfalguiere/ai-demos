@@ -119,7 +119,7 @@ sudo -H -u mlflow /opt/mlflow/mlflowctl start
 sudo -H -u airflow /opt/airflow/airflowctl start
 sudo -H -u jupyter /opt/jupyter/jupyterctl start
 
-export AIDEMOS_TOKEN=$( awk 'BEGIN {FS="="};/$1 ~ ".*token"/ {print $2}' /var/log/aidemos/jupyter/jupyter.out )
+export AIDEMOS_TOKEN=$( awk 'BEGIN {FS="="};/token/ {print $2}'  /var/log/aidemos/jupyter/jupyter.out | head -1 )
 
 
 
