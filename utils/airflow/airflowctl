@@ -14,12 +14,12 @@ case $action in
     # start the scheduler
     ! tmux has-session -t airflowscheduler 2>/dev/null && {
       echo "=== starting AirFlow Scheduler"
-      tmux new -d -s airflowscheduler bash -c "cd /opt/airflow; source etc/setenv.sh; airflow scheduler 2>&1 | tee -a /var/log/aidemos/airflow/airflow-scheduler.out" &
+      tmux new -d -s airflowscheduler bash -c "cd /opt/airflow/airflow; source etc/setenv.sh; airflow scheduler 2>&1 | tee -a /var/log/aidemos/airflow/airflow-scheduler.out" &
     }
     # start the web server, default port is 8080
     ! tmux has-session -t airflowserver 2>/dev/null && {
       echo "=== starting AirFlow Server"
-      tmux new -d -s airflowserver bash -c "cd /opt/airflow; source etc/setenv.sh; airflow webserver -p 8080 2>&1 | tee -a /var/log/aidemos/airflow/airflow-server.out" &
+      tmux new -d -s airflowserver bash -c "cd /opt/airflow/airflow source etc/setenv.sh; airflow webserver -p 8080 2>&1 | tee -a /var/log/aidemos/airflow/airflow-server.out" &
     }
     # TODO check for existence
     ;;
