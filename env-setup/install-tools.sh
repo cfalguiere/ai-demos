@@ -123,7 +123,7 @@ sudo -H -u mlflow /opt/mlflow/mlflowctl start
 sudo -H -u airflow /opt/airflow/airflowctl start
 sudo -H -u jupyter /opt/jupyter/jupyterctl start
 
-sleep 5 # wait jupyter
+sleep 6 # wait jupyter
 export AIDEMOS_TOKEN=$( awk 'BEGIN {FS="="};/token/ {print $2}'  /var/log/aidemos/jupyter/jupyter.out | head -1 )
 echo "AIDEMOS_TOKEN=$AIDEMOS_TOKEN"
 
