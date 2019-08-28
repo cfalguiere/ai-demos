@@ -69,8 +69,11 @@ cd $AIDEMOS_TMP_DIR
   sudo -u h2o unzip "${AIDEMOS_TMP_DIR}/${H2O_PACKAGE}" -d /opt/h2o/
   rm -rf "${AIDEMOS_TMP_DIR}/${H2O_PACKAGE}"
   sudo -u h2o ln -s /opt/h2o/h2o-${H2O_VERSION} /opt/h2o/h2oflowui
+
   touch "${AIDEMOS_TRACKING_DIR}/.h2o"
 }
+
+
 
 # sparkling water ( TODO spark )
 [[ -f "${AIDEMOS_TRACKING_DIR}/.h2o-sparkling-water" ]] || {
@@ -91,6 +94,7 @@ cd $AIDEMOS_TMP_DIR
 [[ -f "${AIDEMOS_TRACKING_DIR}/.mlflow" ]] || {
   echo "=== installing mlflow"
   sudo -u mlflow rsync -avh "${AIDEMOS_REPO_DIR}/utils/mlflow/" /opt/mlflow/
+
   touch "${AIDEMOS_TRACKING_DIR}/.mlflow"
 }
 
