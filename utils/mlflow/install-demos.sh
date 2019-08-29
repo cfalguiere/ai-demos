@@ -12,7 +12,7 @@ mkdir -p mlflow
 pushd $PWD
 
 # tutos
-mkdir -p /data/aidemos/mlflow
+cd  /data/aidemos/mlflow
 git clone https://github.com/mlflow/mlflow mlflowquickstart
 
 popd
