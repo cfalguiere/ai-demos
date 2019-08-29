@@ -5,9 +5,9 @@ channels:
   - conda-forge
   - defaults
 dependencies:
-  - python=3.6.9
+  - python =3.6.9
   - anaconda
-  - mlflow
+  - mlflow =3.26.0.3
   - airflow
   - h2o
   - colorama >=0.3.7
@@ -17,4 +17,3 @@ dependencies:
   - setuptools
   - flask
   - pip
-

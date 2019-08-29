@@ -62,9 +62,9 @@ cd $AIDEMOS_TMP_DIR
   echo "=== installing h2o standalone"
   sudo -u h2o rsync -avh "${AIDEMOS_REPO_DIR}/utils/h2o/" /opt/h2o/
   # https://www.h2o.ai/download/#h2o
-  H2O_VERSION="3.26.0.2"
+  H2O_VERSION="3.26.0.3"
   H2O_PACKAGE="h2o-${H2O_VERSION}.zip"
-  H2O_URL="http://h2o-release.s3.amazonaws.com/h2o/rel-yau/2/${H2O_PACKAGE}"
+  H2O_URL="http://h2o-release.s3.amazonaws.com/h2o/rel-yau/3/${H2O_PACKAGE}"
   wget -q  "${H2O_URL}" -O "${AIDEMOS_TMP_DIR}/${H2O_PACKAGE}"
   sudo -u h2o unzip "${AIDEMOS_TMP_DIR}/${H2O_PACKAGE}" -d /opt/h2o/
   rm -rf "${AIDEMOS_TMP_DIR}/${H2O_PACKAGE}"
