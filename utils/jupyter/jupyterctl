@@ -14,7 +14,7 @@ case $action in
     #TODO timestamp sur le log
     ! tmux has-session -t jupyter  2>/dev/null && {
       echo "=== starting Jupyter"
-      tmux new -d -s jupyter bash -c 'cd /opt/jupyter; source etc/setenv.sh; jupyter notebook --no-browser --ip 0.0.0.0 2>&1 | tee -a /var/log/aidemos/jupyter/jupyter.out' &
+      tmux new -d -s jupyter bash -c 'cd /opt/jupyter; source etc/setenv.sh; jupyter notebook --notebook-dir=/data/aidemos/ --no-browser --ip 0.0.0.0 2>&1 | tee -a /var/log/aidemos/jupyter/jupyter.out' &
       # show token
       #tmux new -d -s jupyter-list bash -c 'cd /opt/jupyter; source etc/setenv.sh; jupyter notebook list'
       echo "INFO - Jupyter started"
