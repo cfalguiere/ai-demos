@@ -19,7 +19,7 @@ case $action in
     }
     # start the scheduler when server is started
     ! tmux has-session -t airflowscheduler 2>/dev/null && {
-      sleep 2
+      sleep 5
       echo "=== starting AirFlow Scheduler"
       tmux new -d -s airflowscheduler bash -c "export AIRFLOW_HOME=/opt/airflow/airflow; cd /opt/airflow; source etc/setenv.sh; airflow scheduler 2>&1 | tee -a /var/log/aidemos/airflow/airflow-scheduler.out" &
       echo "INFO - AirFlow Scheduler started"
