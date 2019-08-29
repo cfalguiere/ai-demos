@@ -5,14 +5,14 @@
 
 pushd $PWD
 
-cd /data/aidemos/projects/
+cd /data/aidemos/
 
 mkdir -p mlflow
 
 pushd $PWD
 
 # tutos
-mkdir -p /data/aidemos/projects/mlflow
+mkdir -p /data/aidemos/mlflow
 git clone https://github.com/mlflow/mlflow mlflowquickstart
 
 popd
