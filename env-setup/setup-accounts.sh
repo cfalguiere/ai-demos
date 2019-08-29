@@ -11,17 +11,10 @@ groupadd devs
 groupadd tools
 
 # tools dir
-for p in /opt/ 
+for p in /opt/ /data/aidemos/ /var/log/aidemos/
 do
   mkdir -p $p
   chgrp tools $p
-  chmod g+w $p
-done
-
-for p in /data/aidemos/ /var/log/aidemos/
-do
-  mkdir -p $p
-  chgrp devs $p
   chmod g+w $p
 done
 
