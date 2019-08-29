@@ -7,9 +7,9 @@ channels:
 dependencies:
   - python =3.6.9
   - anaconda
-  - mlflow =3.26.0.3
+  - mlflow
   - airflow
-  - h2o
+  - h2o =3.26.0.3
   - colorama >=0.3.7
   - future >=0.15.2
   - tabulate >=0.7.5
