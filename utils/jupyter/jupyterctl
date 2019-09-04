@@ -29,9 +29,12 @@ case $action in
       echo "INFO - Jupyter stopped"
     }
     ;;
+  attach)
+      tmux attach -t jupyter
+      ;;
   list)
-    tmux new -d -s jupyter-list bash -c 'cd /opt/jupyter; source etc/setenv.sh; jupyter notebook list'
-    ;;
+      tmux new -d -s jupyter-list bash -c 'cd /opt/jupyter; source etc/setenv.sh; jupyter notebook list'
+        ;;
   *)
     echo "ERROR - unknow action action"
     exit -1
