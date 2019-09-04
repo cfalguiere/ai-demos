@@ -34,9 +34,9 @@ case $action in
       ;;
   list)
       tmux new -d -s jupyter-list bash -c 'cd /opt/jupyter; source etc/setenv.sh; jupyter notebook list'
-        ;;
+      ;;
   *)
-    echo "ERROR - unknow action action"
+    echo "ERROR - unknow action $action"
     exit -1
     ;;
 esac
