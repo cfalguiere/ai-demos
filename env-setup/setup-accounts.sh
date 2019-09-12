@@ -40,4 +40,8 @@ do
 
 done
 
+sudo mkdir -p /data/demos
+chgrp devs /data/demos
+chmod g+rwX /data/demos
+
 echo "INFO - accounts created"

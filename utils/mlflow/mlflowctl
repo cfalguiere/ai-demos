@@ -13,10 +13,8 @@ case $action in
     #TODO timestamp sur le log
     ! tmux has-session -t mlflowui  2>/dev/null && {
       echo "=== starting MLFlow Server"
-      mkdir -p /data/mlflow/mlruns
-      chgrp devs /data/mlflow/mlruns
-      chmod g+rwx /data/mlflow/mlruns
       tmux new -d -s mlflowui bash -c 'cd /opt/mlflow; source etc/setenv.sh; mlflow server --backend-store-uri /data/mlflow/mlruns  --default-artifact-root /data/mlflow/mlruns --host 0.0.0.0 2>&1 | tee -a /var/log/aidemos/mlflow/mlflowui.out' &
+      sudo ln -s /data/mlflow/mlruns/ /data/demos/mlruns/
       echo "INFO - MLFlow Server started"
     }
     # TODO check for existence
