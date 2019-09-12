@@ -25,7 +25,7 @@ case $action in
     ! tmux has-session -t h2oflow  2>/dev/null && {
       #TODO log arret
       echo "=== stopping H2O Flow"
-      tmux kil-session -t h2oflow
+      tmux kill-session -t h2oflow
       echo "INFO - H2O Flow stopped"
     }
     ;;

@@ -30,13 +30,13 @@ case $action in
     ! tmux has-session -t airflowscheduler  2>/dev/null && {
       #TODO log arret
       echo "=== stopping AirFlow Scheduler"
-      tmux kil-session -t airflowscheduler
+      tmux kill-session -t airflowscheduler
       echo "INFO - AirFlow Scheduler stopped"
     }
     ! tmux has-session -t airflowserver  2>/dev/null && {
       #TODO log arret
       echo "=== stopping AirFlow Server"
-      tmux kil-session -t airflowserver
+      tmux kill-session -t airflowserver
       echo "INFO - AirFlow Server stopped"
     }
     ;;

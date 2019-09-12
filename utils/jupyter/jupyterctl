@@ -25,7 +25,7 @@ case $action in
     ! tmux has-session -t jupyter  2>/dev/null && {
       #TODO log arret
       echo "=== stopping Jupyter"
-      tmux kil-session -t jupyter
+      tmux kill-session -t jupyter
       echo "INFO - Jupyter stopped"
     }
     ;;

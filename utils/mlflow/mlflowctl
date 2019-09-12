@@ -23,7 +23,7 @@ case $action in
     ! tmux has-session -t mlflowui  2>/dev/null && {
       #TODO log arret
       echo "=== stopping MLFlow Server"
-      tmux kil-session -t mlflowui
+      tmux kill-session -t mlflowui
       echo "INFO - MLFlow Server stopped"
     }
     ;;
