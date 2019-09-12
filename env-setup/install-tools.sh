@@ -114,6 +114,8 @@ cd $AIDEMOS_TMP_DIR
 [[ -f "${AIDEMOS_TRACKING_DIR}/.jupyter" ]] || {
   echo "=== installing jupyter"
   sudo -u jupyter rsync -avh "${AIDEMOS_REPO_DIR}/utils/jupyter/" /opt/jupyter/
+  #sudo -u jupyter tmux new -d -s jupyterinit bash -c "cd /opt/jupyter; source etc/setenv.sh; jupyter notebook --generate-config 2>&1 | tee -a /var/log/jupyter/jupyter-init.out; touch /var/log/juppyter/.jupyter-init"
+  #sudo -u jupyter echo 'c.NotebookApp.notebook_dir = "/data/aidemos/"' >> /opt/jupyter/jupyter_notebook_config.py
   touch "${AIDEMOS_TRACKING_DIR}/.jupyter"
 }
 

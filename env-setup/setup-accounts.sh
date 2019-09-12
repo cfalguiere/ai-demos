@@ -34,7 +34,7 @@ for account in h2o mlflow airflow jupyter
 do
   sudo -u ${account} mkdir -p /opt/${account}
   # data
-  sudo -u ${account} mkdir -p /data/aidemos/${account}
+  sudo -u ${account} mkdir -p /data/${account}
   # logs
   sudo -u ${account} mkdir -p /var/log/aidemos/${account}
 
